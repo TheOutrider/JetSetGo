@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "JetInpuAction",
+    "maps": [
+        {
+            "name": "Jet",
+            "id": "e4c72d31-a713-4e98-906a-8b4977cf7894",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "29e7f103-e5e0-4074-94f3-41d4a4be2951",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a0c6b2aa-6119-445e-8e10-990d26ddfe99",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

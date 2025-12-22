@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("COLLIDED WITH : " + collision.gameObject.name);
         collision.gameObject.GetComponent<Renderer>().material.color = Color.red;
     }
 
@@ -48,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         if (input != Vector2.zero)
         {
             float targetAngle = Mathf.Atan2(currentMove.x, currentMove.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationSpeed, 0.1f);
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationSpeed, 0.05f);
             transform.rotation = Quaternion.Euler(0, angle, 0);
         }
     }

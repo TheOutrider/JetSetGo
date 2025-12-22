@@ -1386,7 +1386,7 @@ GameObject:
   - component: {fileID: 5169660259291915692}
   - component: {fileID: 6943044106815574374}
   m_Layer: 0
-  m_Name: StarSparrow20
+  m_Name: Phoenix
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

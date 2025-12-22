@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 1028786350222867045}
   - component: {fileID: 5138557745324611303}
   - component: {fileID: 6226323067082918484}
+  - component: {fileID: -5037796394823305899}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -266,9 +267,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b81c0bf58b663a644a33ad0539dc3093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 4
+  moveSpeed: 5.5
   acceleration: 4
-  jumpForce: 1.5
+  rotationSpeed: 10
+  jumpForce: 3.5
   gravity: 9.81
 --- !u!114 &5138557745324611303
 MonoBehaviour:
@@ -322,9 +324,33 @@ MonoBehaviour:
   _directChildren: []
   _networkRules: {fileID: 0}
   _visitiblityRules: {fileID: 0}
-  _components: []
+  _components:
+  - target: {fileID: 1028786350222867045}
+    activeAsOwner: 1
   _gameObjects: []
   _toActivate: []
   _toDeactivate: []
   _toEnable: []
   _toDisable: []
+--- !u!114 &-5037796394823305899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8799570962032016488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a70e09f3c084e34abcef12d9f7c6cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CubeSpawnner
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  cubePrefab: {fileID: 5984288981369351980, guid: 30b6aa33b5c5da64bb8b6ae6a54ab701, type: 3}
