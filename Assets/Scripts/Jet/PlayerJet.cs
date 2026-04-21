@@ -31,6 +31,11 @@ public class PlayerJet : MonoBehaviour
     [SerializeField] float rollTorqueStrength = 10f;
     [SerializeField] float rollDamping = 3f;
 
+    private JetCanvas jetCanvas;
+
+    Vector3 lastVelocity;
+    public Vector3 LocalGForce;
+
     void OnEnable()
     {
         lookAction.action.Enable();
@@ -45,23 +50,18 @@ public class PlayerJet : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         jetRb = GetComponent<Rigidbody>();
-
-        //look = InputActions.FindAction("Look");
+        jetCanvas = GetComponent<JetCanvas>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-
         Vector2 input = lookAction.action.ReadValue<Vector2>();
-
         mouseX = input.x;
         mouseY = input.y;
 
-        //verticalMove = Input.GetAxis("Vertical");
-        //Debug.Log("MOBILE ACTIONS : " + look.verti)
+        Vector3 gForceInGs = LocalGForce / 9.81f;
+        jetCanvas.GForce = gForceInGs;
     }
-
 
     private void FixedUpdate()
     {
@@ -70,28 +70,8 @@ public class PlayerJet : MonoBehaviour
         jetRb.AddTorque(jetRb.transform.right * speedMultAngle * mouseY * -1, ForceMode.Acceleration);
         jetRb.AddTorque(jetRb.transform.up * speedMultAngle * mouseX , ForceMode.Acceleration);
         jetRb.AddTorque(jetRb.transform.forward * speedMultAngle * mouseX * -1, ForceMode.Acceleration);
-
         HandleRoll();
-        //StabilizeRoll();
-        //float zAngle = transform.eulerAngles.z;
-
-        //if (zAngle > 180f)
-        //    zAngle -= 360f;
-
-        //float correction = -zAngle * torqueStrength;
-
-        //jetRb.AddTorque(Vector3.forward * correction);
-    }
-
-    void StabilizeRoll()
-    {
-        // Get current roll angular velocity
-        float rollVelocity = jetRb.angularVelocity.z;
-
-        // Apply damping torque to stop roll
-        float torque = -rollVelocity * torqueStrength;
-
-        jetRb.AddTorque(Vector3.forward * torque, ForceMode.Acceleration);
+        CalculateGForce(Time.fixedDeltaTime);
     }
 
     void HandleRoll()
@@ -134,4 +114,21 @@ public class PlayerJet : MonoBehaviour
         rollRightPressed = false;
     }
 
+    void CalculateGForce(float dt)
+    {
+        // Current velocity from Rigidbody
+        Vector3 velocity = jetRb.linearVelocity;
+
+        // Acceleration = change in velocity over time
+        Vector3 acceleration = (velocity - lastVelocity) / dt;
+
+        // Remove gravity (so you only measure maneuver Gs)
+        acceleration -= Physics.gravity;
+
+        // Convert to local space (relative to jet orientation)
+        LocalGForce = transform.InverseTransformDirection(acceleration);
+
+        // Store for next frame
+        lastVelocity = velocity;
+    }
 }
