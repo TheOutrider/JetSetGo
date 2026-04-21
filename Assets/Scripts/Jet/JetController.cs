@@ -1,68 +1,86 @@
-using System;
-using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
-public class JetController : MonoBehaviour {
-    
-    [SerializeField] private Transform camTarget, displayParent;
-    [SerializeField] private Rigidbody rb;
-    [SerializeField] private float maxThrust = 200f, responsiveness = 10f, lift = 135f, throttleIncrement = 0.1f;
+public class AirplaneController : MonoBehaviour
+{
+    [SerializeField]
+    float rollControlSensitivity = 0.2f;
+    [SerializeField]
+    float pitchControlSensitivity = 0.2f;
+    [SerializeField]
+    float yawControlSensitivity = 0.2f;
+    [SerializeField]
+    float thrustControlSensitivity = 0.01f;
+    [SerializeField]
+    float flapControlSensitivity = 0.15f;
 
-    [Header("Jet Texts")]
-    [SerializeField] private TextMeshProUGUI playerNametext;
-    [SerializeField] private TextMeshProUGUI speedText;
 
-    [Header("Boosting Mechanisms")]
-    [SerializeField] private float boostMultiplier = 2f;
-    [SerializeField] private float boostDuration = 2f;
-    private bool isBoosting = false;
+    float pitch;
+    float yaw;
+    float roll;
+    float flap;
 
-    [Header("Jet Particle Systems")]
-    [SerializeField] private ParticleSystem Hyperdrive;
-    [SerializeField] private ParticleSystem Shield;
-    [SerializeField] private ParticleSystem Heal;
-    [SerializeField] private ParticleSystem DamageSmoke;
-    [SerializeField] private ParticleSystem Blast;
+    float thrustPercent;
+    bool brake = false;
 
-    [Header("Action Buttons")]
-    [SerializeField] private Button readyButton;
+    AircraftPhysics aircraftPhysics;
+    //Rotator propeller;
 
-    public Button turretButton;
-    public Button missileButton;
-    public Button cameraButton;
-    public Button abilityButton;
-    public Button boostButton;
-
-    private Slider ThrottleSlider;
-
-    public bool IsReady;
-    public float throttle = 0f;
-    public float sensitivity = 2.5f, rotationSensitvityFactor = 15;
-
-    private float xRotation = 0f;
-    private float yRotation = 0f;
-
-    public float responseModifier
+    private void Start()
     {
-        get
+        aircraftPhysics = GetComponent<AircraftPhysics>();
+        //propeller = FindObjectOfType<Rotator>();
+        SetThrust(0);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            return rb.mass / 5f * responsiveness;
+            SceneManager.LoadScene(0);
         }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            SetThrust(thrustPercent + thrustControlSensitivity);
+        }
+        //propeller.speed = thrustPercent * 1500f;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            thrustControlSensitivity *= -1;
+            flapControlSensitivity *= -1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            brake = !brake;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            flap += flapControlSensitivity;
+            //clamp
+            flap = Mathf.Clamp(flap, 0f, Mathf.Deg2Rad * 40);
+        }
+
+        pitch = pitchControlSensitivity * Input.GetAxis("Vertical");
+        roll = rollControlSensitivity * Input.GetAxis("Horizontal");
+        yaw = yawControlSensitivity * Input.GetAxis("Yaw");
     }
 
-    private void HandleJetForces()
+    private void SetThrust(float percent)
     {
-        float currentThrust = maxThrust;
-        if (isBoosting)
-            currentThrust *= boostMultiplier;
-        rb.AddForce(currentThrust * throttle * transform.forward);
-        // rb.AddTorque(responseModifier * yaw * transform.up);
-        // rb.AddTorque(pitch * responseModifier * transform.right);
-        // rb.AddTorque(responseModifier * roll * -transform.forward);
-        // lift force
-        rb.AddForce(lift * throttle * Vector3.up);
+        thrustPercent = Mathf.Clamp01(percent);
     }
 
+    private void FixedUpdate()
+    {
+        aircraftPhysics.SetControlSurfecesAngles(pitch, roll, yaw, flap);
+        aircraftPhysics.SetThrustPercent(thrustPercent);
+        aircraftPhysics.Brake(brake);
+    }
 }
