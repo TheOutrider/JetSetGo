@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerJet : MonoBehaviour
 {
-    Rigidbody jetRb;
+    public Rigidbody jetRb;
 
     public InputActionReference lookAction;
 
@@ -24,7 +24,6 @@ public class PlayerJet : MonoBehaviour
     [SerializeField] float lift = 135f;
     [SerializeField] float speedMult = 1f;
     [SerializeField] float speedMultAngle = 0.5f ;
-    [SerializeField] float speedRollMultAngle = 0.05f;
     [SerializeField] float torqueStrength = 10f;
 
     [SerializeField] float maxRollAngle = 90f;
@@ -54,6 +53,7 @@ public class PlayerJet : MonoBehaviour
         jetRb = GetComponent<Rigidbody>();
         jetCanvas = GetComponent<JetCanvas>();
         cam = Camera.main;
+        jetCanvas.playerJet = this;
         jetCanvas.cameraTransform = cam.transform;
     }
 
@@ -72,8 +72,8 @@ public class PlayerJet : MonoBehaviour
         jetRb.AddForce(jetRb.transform.TransformDirection(Vector3.forward) * throttleSlider.value * speedMult, ForceMode.VelocityChange );
         //jetRb.AddForce(lift * throttleSlider.value * Vector3.up);
         //jetRb.AddForce(jetRb.transform.TransformDirection(Vector3.right) * mouseX * speedMult, ForceMode.Impulse);
-        jetRb.AddTorque(jetRb.transform.right * speedMultAngle * mouseY * -1, ForceMode.Acceleration);
-        jetRb.AddTorque(jetRb.transform.up * speedMultAngle * mouseX , ForceMode.Acceleration);
+        jetRb.AddTorque(jetRb.transform.right * speedMultAngle * mouseY * -1, ForceMode.Impulse);
+        jetRb.AddTorque(jetRb.transform.up * speedMultAngle * mouseX , ForceMode.Impulse);
         jetRb.AddTorque(jetRb.transform.forward * speedMultAngle * mouseX * -1, ForceMode.Acceleration);
         HandleRoll();
         CalculateGForce(Time.fixedDeltaTime);

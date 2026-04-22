@@ -8,9 +8,12 @@ using UnityEngine.UI;
 public class JetCanvas : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI gforceIndicator;
+    [SerializeField] private TextMeshProUGUI speedIndicator;
+    [SerializeField] private TextMeshProUGUI altitudeIndicator;
     [SerializeField] private GameObject hudHorizontalIndicator;
     public Vector3 GForce;
     public Transform cameraTransform;
+    public PlayerJet playerJet;
 
     private void Update()
     {
@@ -18,6 +21,10 @@ public class JetCanvas : MonoBehaviour
 
         float verticalG = GForce.y;
         gforceIndicator.text = verticalG.ToString("F1") + " G";
+
+        float speedMS = playerJet.jetRb.linearVelocity.magnitude;
+        speedIndicator.text = speedMS.ToString("F1") + " m/s";
+        altitudeIndicator.text = playerJet.transform.position.y.ToString("F1");
     }
 
     void LateUpdate()
