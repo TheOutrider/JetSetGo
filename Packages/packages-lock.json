@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.9",
       "depth": 0,
@@ -20,7 +26,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
-      "version": "3.1.5",
+      "version": "3.1.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -38,7 +44,7 @@
     },
     "com.unity.collections": {
       "version": "2.6.2",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.burst": "1.8.23",
@@ -200,7 +206,7 @@
     },
     "com.unity.test-framework.performance": {
       "version": "3.2.0",
-      "depth": 3,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.test-framework": "1.1.33",
@@ -245,9 +251,10 @@
       "source": "git",
       "dependencies": {
         "com.unity.nuget.mono-cecil": "1.11.4",
-        "com.unity.nuget.newtonsoft-json": "3.2.1"
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.collections": "2.6.2"
       },
-      "hash": "966aba8f844623e7b5fd428f59c360de864c8c89"
+      "hash": "266cb63efd3d858d6d2fce68c2b0b2364ca78c24"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
