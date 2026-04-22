@@ -7,12 +7,11 @@ using UnityEngine.UI;
 public class PlayerJet : MonoBehaviour
 {
     Rigidbody jetRb;
-    InputActionAsset InputActions;
 
     public InputActionReference lookAction;
 
     public GameObject TouchPad;
-    float verticalMove, horizontalMove, mouseX, mouseY, rollInput;
+    float  mouseX, mouseY;
 
     public Slider throttleSlider;
 
@@ -22,6 +21,7 @@ public class PlayerJet : MonoBehaviour
     [SerializeField] float rollTorque = 20f;
     [SerializeField] float rollStabilize = 5f;
 
+    [SerializeField] float lift = 135f;
     [SerializeField] float speedMult = 1f;
     [SerializeField] float speedMultAngle = 0.5f ;
     [SerializeField] float speedRollMultAngle = 0.05f;
@@ -35,6 +35,8 @@ public class PlayerJet : MonoBehaviour
 
     Vector3 lastVelocity;
     public Vector3 LocalGForce;
+
+    private Camera cam;
 
     void OnEnable()
     {
@@ -51,6 +53,8 @@ public class PlayerJet : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         jetRb = GetComponent<Rigidbody>();
         jetCanvas = GetComponent<JetCanvas>();
+        cam = Camera.main;
+        jetCanvas.cameraTransform = cam.transform;
     }
 
     void Update()
@@ -66,6 +70,7 @@ public class PlayerJet : MonoBehaviour
     private void FixedUpdate()
     {
         jetRb.AddForce(jetRb.transform.TransformDirection(Vector3.forward) * throttleSlider.value * speedMult, ForceMode.VelocityChange );
+        //jetRb.AddForce(lift * throttleSlider.value * Vector3.up);
         //jetRb.AddForce(jetRb.transform.TransformDirection(Vector3.right) * mouseX * speedMult, ForceMode.Impulse);
         jetRb.AddTorque(jetRb.transform.right * speedMultAngle * mouseY * -1, ForceMode.Acceleration);
         jetRb.AddTorque(jetRb.transform.up * speedMultAngle * mouseX , ForceMode.Acceleration);
