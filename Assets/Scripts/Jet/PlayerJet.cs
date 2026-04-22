@@ -72,8 +72,8 @@ public class PlayerJet : MonoBehaviour
         jetRb.AddForce(jetRb.transform.TransformDirection(Vector3.forward) * throttleSlider.value * speedMult, ForceMode.VelocityChange );
         //jetRb.AddForce(lift * throttleSlider.value * Vector3.up);
         //jetRb.AddForce(jetRb.transform.TransformDirection(Vector3.right) * mouseX * speedMult, ForceMode.Impulse);
-        jetRb.AddTorque(jetRb.transform.right * speedMultAngle * mouseY * -1, ForceMode.Impulse);
-        jetRb.AddTorque(jetRb.transform.up * speedMultAngle * mouseX , ForceMode.Impulse);
+        jetRb.AddTorque(jetRb.transform.right * speedMultAngle * mouseY * -1, ForceMode.Acceleration);
+        jetRb.AddTorque(jetRb.transform.up * speedMultAngle * mouseX , ForceMode.Acceleration);
         jetRb.AddTorque(jetRb.transform.forward * speedMultAngle * mouseX * -1, ForceMode.Acceleration);
         HandleRoll();
         CalculateGForce(Time.fixedDeltaTime);
