@@ -1,14 +1,16 @@
+using PurrNet;
 using System;
 using System.Runtime.InteropServices;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerJet : MonoBehaviour
+public class PlayerJet : NetworkBehaviour
 {
     public Rigidbody jetRb;
 
-    public InputActionReference lookAction;
+    [SerializeField] private InputActionReference lookAction;
 
     public GameObject TouchPad;
     float  mouseX, mouseY;
@@ -20,22 +22,28 @@ public class PlayerJet : MonoBehaviour
 
     [SerializeField] float rollTorque = 20f;
     [SerializeField] float rollStabilize = 5f;
-
-    [SerializeField] float lift = 135f;
     [SerializeField] float speedMult = 1f;
     [SerializeField] float speedMultAngle = 0.5f ;
-    [SerializeField] float torqueStrength = 10f;
-
-    [SerializeField] float maxRollAngle = 90f;
-    [SerializeField] float rollTorqueStrength = 10f;
-    [SerializeField] float rollDamping = 3f;
+    //[SerializeField] float torqueStrength = 10f;
+    //[SerializeField] float lift = 135f;
+    //[SerializeField] float maxRollAngle = 90f;
+    //[SerializeField] float rollTorqueStrength = 10f;
+    //[SerializeField] float rollDamping = 3f;
 
     private JetCanvas jetCanvas;
 
     Vector3 lastVelocity;
     public Vector3 LocalGForce;
 
-    private Camera cam;
+    [SerializeField] private CinemachineCamera cam;
+
+    protected override void OnSpawned()
+    {
+        base.OnSpawned();
+        enabled = isOwner;
+
+        cam.gameObject.SetActive(isOwner);
+    }
 
     void OnEnable()
     {
@@ -52,7 +60,7 @@ public class PlayerJet : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         jetRb = GetComponent<Rigidbody>();
         jetCanvas = GetComponent<JetCanvas>();
-        cam = Camera.main;
+        //cam = Camera.main;
         jetCanvas.playerJet = this;
         jetCanvas.cameraTransform = cam.transform;
     }
@@ -91,7 +99,6 @@ public class PlayerJet : MonoBehaviour
         }
         else
         {
-            // Optional: stabilize roll when no input
             float rollVelocity = jetRb.angularVelocity.z;
             float stabilizeTorque = -rollVelocity * rollStabilize;
 

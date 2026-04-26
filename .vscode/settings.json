@@ -67,5 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "JetSetGo.slnx"
+    "dotnet.defaultSolution": "JetSetGo.slnx",
+    "dotnet.preferCSharpExtension": true
 }
