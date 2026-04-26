@@ -1,6 +1,4 @@
 using PurrNet;
-using System;
-using System.Runtime.InteropServices;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,13 +22,9 @@ public class PlayerJet : NetworkBehaviour
     [SerializeField] float rollStabilize = 5f;
     [SerializeField] float speedMult = 1f;
     [SerializeField] float speedMultAngle = 0.5f ;
-    //[SerializeField] float torqueStrength = 10f;
-    //[SerializeField] float lift = 135f;
-    //[SerializeField] float maxRollAngle = 90f;
-    //[SerializeField] float rollTorqueStrength = 10f;
-    //[SerializeField] float rollDamping = 3f;
 
     private JetCanvas jetCanvas;
+    private JetStats jetStats;
 
     Vector3 lastVelocity;
     public Vector3 LocalGForce;
@@ -60,6 +54,7 @@ public class PlayerJet : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         jetRb = GetComponent<Rigidbody>();
         jetCanvas = GetComponent<JetCanvas>();
+        jetStats = GetComponent<JetStats>();
         //cam = Camera.main;
         jetCanvas.playerJet = this;
         jetCanvas.cameraTransform = cam.transform;
@@ -130,17 +125,18 @@ public class PlayerJet : NetworkBehaviour
     {
         // Current velocity from Rigidbody
         Vector3 velocity = jetRb.linearVelocity;
-
         // Acceleration = change in velocity over time
         Vector3 acceleration = (velocity - lastVelocity) / dt;
-
         // Remove gravity (so you only measure maneuver Gs)
         acceleration -= Physics.gravity;
-
         // Convert to local space (relative to jet orientation)
         LocalGForce = transform.InverseTransformDirection(acceleration);
-
         // Store for next frame
         lastVelocity = velocity;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("JET COLLIDED WITH " +  collision.gameObject.name);
     }
 }
