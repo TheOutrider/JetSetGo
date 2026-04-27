@@ -5,7 +5,7 @@ using Unity.Cinemachine;
 public class JetWeapons : NetworkBehaviour
 {
 
-    [SerializeField] private CinemachineCamera camera;
+    [SerializeField] private CinemachineCamera cam;
     [SerializeField] private LayerMask hitLayer;
     [SerializeField] private float range = 2000f;
 
@@ -31,7 +31,7 @@ public class JetWeapons : NetworkBehaviour
     void Update()
     {
         if (!isFirePressed) return;
-        if (!Physics.Raycast(camera.transform.position, camera.transform.forward, out var hit, range, hitLayer))
+        if (!Physics.Raycast(cam.transform.position, cam.transform.forward, out var hit, range, hitLayer))
             return;
 
         Debug.Log($"HIT OBJ : {hit.transform.name}");
@@ -61,7 +61,7 @@ public class JetWeapons : NetworkBehaviour
         //Camera cam = Camera.main;
         //Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
-        Ray ray = new Ray(camera.transform.position, camera.transform.forward);
+        Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, range, hitLayer))

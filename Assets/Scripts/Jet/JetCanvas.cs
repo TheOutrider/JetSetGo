@@ -10,7 +10,9 @@ public class JetCanvas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gforceIndicator;
     [SerializeField] private TextMeshProUGUI speedIndicator;
     [SerializeField] private TextMeshProUGUI altitudeIndicator;
+    [SerializeField] private TextMeshProUGUI bankAngleIndicator;
     [SerializeField] private GameObject hudHorizontalIndicator;
+
     public Vector3 GForce;
     public Transform cameraTransform;
     public PlayerJet playerJet;
@@ -19,12 +21,13 @@ public class JetCanvas : MonoBehaviour
     {
         //gforceIndicator.text = string.Format("{0:0.0} G", GForce);
 
-        float verticalG = GForce.y;
+        float verticalG = Math.Abs(GForce.y * 2.5f);
         gforceIndicator.text = verticalG.ToString("F1") + " G";
 
         float speedMS = playerJet.jetRb.linearVelocity.magnitude;
         speedIndicator.text = speedMS.ToString("F1") + " m/s";
         altitudeIndicator.text = playerJet.transform.position.y.ToString("F1");
+        bankAngleIndicator.text = playerJet.gameObject.transform.rotation.z.ToString("F1") + "°";
     }
 
     void LateUpdate()
