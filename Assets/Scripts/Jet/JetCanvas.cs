@@ -1,12 +1,10 @@
-using System;
-using System.Runtime.InteropServices;
+﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class JetCanvas : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI healthIndicator;
     [SerializeField] private TextMeshProUGUI gforceIndicator;
     [SerializeField] private TextMeshProUGUI speedIndicator;
     [SerializeField] private TextMeshProUGUI altitudeIndicator;
@@ -27,7 +25,10 @@ public class JetCanvas : MonoBehaviour
         float speedMS = playerJet.jetRb.linearVelocity.magnitude;
         speedIndicator.text = speedMS.ToString("F1") + " m/s";
         altitudeIndicator.text = playerJet.transform.position.y.ToString("F1");
-        bankAngleIndicator.text = playerJet.gameObject.transform.rotation.z.ToString("F1") + "�";
+
+        float bankAngle = playerJet.transform.eulerAngles.z;
+        if (bankAngle > 180f) bankAngle -= 360f; // remap 180–360 → 0 to -180
+        bankAngleIndicator.text = bankAngle.ToString("F1") + "°";
     }
 
     void LateUpdate()
@@ -39,5 +40,10 @@ public class JetCanvas : MonoBehaviour
 
         //if (forward != Vector3.zero)
         //    hudHorizontalIndicator.transform.rotation = Quaternion.LookRotation(forward);
+    }
+
+    public void SetHealth(int health)
+    {
+        healthIndicator.text = health.ToString();
     }
 }

@@ -1,14 +1,14 @@
 using UnityEngine;
 using PurrNet;
-using UnityEngine.SceneManagement;
 
 public class JetStats : NetworkBehaviour
 {
-
     [SerializeField] private SyncVar<int> health = new SyncVar<int>(100);
     [SerializeField] private int selfLayer, otherLayer;
 
     public int Health => health.value;
+
+    private JetCanvas jetCanvas;
 
     protected override void OnSpawned()
     {
@@ -16,6 +16,17 @@ public class JetStats : NetworkBehaviour
         enabled = isOwner;
         var actualLayer = isOwner ? selfLayer : otherLayer;
         SetLayerRecursive(gameObject, actualLayer);
+        jetCanvas = GetComponent<JetCanvas>();
+
+        if (isOwner) health.onChanged += ChangeHealth;
+
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+         health.onChanged -= ChangeHealth;
 
     }
 
@@ -31,6 +42,7 @@ public class JetStats : NetworkBehaviour
     private void ChangeHealth(int amount)
     {
         health.value += amount;
+        jetCanvas.SetHealth(health.value);
     }
 
     private void Update()
