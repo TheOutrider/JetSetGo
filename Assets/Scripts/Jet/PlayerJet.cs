@@ -45,6 +45,11 @@ public class PlayerJet : NetworkBehaviour
         enabled = isOwner;
 
         cam.gameObject.SetActive(isOwner);
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.OnLocalJetSpawned(hideDelay: 2f);
+        else
+            Debug.LogWarning("[PlayerJet] UIManager instance not found in scene.");
     }
 
     void OnEnable()
