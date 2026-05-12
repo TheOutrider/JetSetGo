@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tropics.unity
     guid: 98d7a2d6719dfeb44bf4f041b09f6c2f
+  - enabled: 1
+    path: Assets/Scenes/Cityline.unity
+    guid: 78a21c164135c4b48a6b1bd2e1806311
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 6c4dcf2f4f1eed94b87588ddeef46ba7, type: 3}
   m_UseUCBPForAssetBundles: 0
