@@ -30,6 +30,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (passed) return;
         if (!other.CompareTag("Player")) return;
+        Debug.Log("OBJECT TRIGGEREED");
 
         CheckpointManager.Instance?.CheckpointReached(checkpointIndex);
     }
@@ -58,7 +59,7 @@ public class Checkpoint : MonoBehaviour
     {
         Gizmos.color = passed ? Color.green : Color.yellow;
         Gizmos.DrawWireCube(transform.position, transform.lossyScale);
-        UnityEditor.Handles.Label(transform.position + Vector3.up * 2f,
-            $"CP {checkpointIndex}");
+        //UnityEditor.Handles.Label(transform.position + Vector3.up * 2f,
+        //    $"CP {checkpointIndex}");
     }
 }

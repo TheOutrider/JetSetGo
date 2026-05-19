@@ -8,6 +8,10 @@ public class CheckpointManager : MonoBehaviour
 {
     public static CheckpointManager Instance { get; private set; }
 
+    [Header("Player Spawner")]
+    public GameObject playerPrefab;
+    public Transform playerStartTransform;
+
     [Header("Checkpoints")]
     [Tooltip("Assign checkpoints IN ORDER in the Inspector")]
     public List<Checkpoint> checkpoints = new List<Checkpoint>();
@@ -43,6 +47,8 @@ public class CheckpointManager : MonoBehaviour
             checkpoints.AddRange(FindObjectsByType<Checkpoint>(FindObjectsSortMode.None));
             checkpoints.Sort((a, b) => a.checkpointIndex.CompareTo(b.checkpointIndex));
         }
+
+        Instantiate(playerPrefab, playerStartTransform.position, playerStartTransform.rotation);
 
         // Number them
         for (int i = 0; i < checkpoints.Count; i++)
