@@ -12,6 +12,8 @@ public class CheckpointManager : MonoBehaviour
     public GameObject playerPrefab;
     public Transform playerStartTransform;
 
+    public RaceHUD raceHUD;
+
     [Header("Checkpoints")]
     [Tooltip("Assign checkpoints IN ORDER in the Inspector")]
     public List<Checkpoint> checkpoints = new List<Checkpoint>();
@@ -19,12 +21,19 @@ public class CheckpointManager : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI checkpointText;
-    public GameObject finishPanel;
-    public TextMeshProUGUI finalTimeText;
+    public GameObject finishPanel, lostPanel, buttonGrid;
+    public Image startPanel;
+    public TextMeshProUGUI finalTimeText, startRaceText;
+    public Button restartButton;
 
     [Header("Settings")]
-    public bool countUp = true; // true = stopwatch, false = countdown
-    public float countdownStartTime = 60f; // only used if countUp = false
+    public bool countUp = true;
+    public float countdownStartTime = 60f;
+
+    [Header("Countdown")]
+    [Tooltip("Words shown during the pre-race countdown, one per second")]
+    public string[] countdownWords = { "Jet", "Set", "Go" };
+    public float wordDisplayDuration = 1f;
 
     // State
     private float elapsedTime = 0f;
@@ -32,31 +41,53 @@ public class CheckpointManager : MonoBehaviour
     private bool raceStarted = false;
     private bool raceFinished = false;
 
+    private GameObject spawnedPlayer;
+
     void Awake()
     {
-        // Singleton
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
     }
 
     void Start()
     {
-        // Auto-collect checkpoints if not assigned manually
         if (checkpoints.Count == 0)
         {
             checkpoints.AddRange(FindObjectsByType<Checkpoint>(FindObjectsSortMode.None));
             checkpoints.Sort((a, b) => a.checkpointIndex.CompareTo(b.checkpointIndex));
         }
 
-        Instantiate(playerPrefab, playerStartTransform.position, playerStartTransform.rotation);
-
-        // Number them
         for (int i = 0; i < checkpoints.Count; i++)
             checkpoints[i].checkpointIndex = i;
 
+        spawnedPlayer = Instantiate(playerPrefab, playerStartTransform.position, playerStartTransform.rotation);
+
         if (finishPanel) finishPanel.SetActive(false);
+        if (lostPanel) lostPanel.SetActive(false);
+        if (buttonGrid) buttonGrid.SetActive(false);
+
+        if (restartButton)
+            restartButton.onClick.AddListener(RestartRace);
+
+        // Keep startPanel and startRaceText visible (set in Inspector)
+        // Ensure full opacity to start
+        if (startPanel)
+        {
+            Color c = startPanel.color;
+            c.a = 1f;
+            startPanel.color = c;
+        }
+        if (startRaceText)
+        {
+            Color c = startRaceText.color;
+            c.a = 1f;
+            startRaceText.color = c;
+        }
+
+        raceHUD.playerTransform = spawnedPlayer.transform;
+
         UpdateCheckpointUI();
-        StartRace();
+        StartCoroutine(PreRaceCountdown());
     }
 
     void Update()
@@ -68,19 +99,98 @@ public class CheckpointManager : MonoBehaviour
         else
         {
             elapsedTime -= Time.deltaTime;
-            if (elapsedTime <= 0f) { elapsedTime = 0f; FinishRace(); }
+            if (elapsedTime <= 0f) { elapsedTime = 0f; LoseRace(); }
         }
 
         UpdateTimerUI();
     }
 
-    public void StartRace()
+    // ── Pre-race countdown ───────────────────────────────────────────────────
+
+    private IEnumerator PreRaceCountdown()
+    {
+        float totalDuration = countdownWords.Length * wordDisplayDuration;
+        float elapsed = 0f;
+
+        for (int i = 0; i < countdownWords.Length; i++)
+        {
+            // Show the word
+            if (startRaceText) startRaceText.text = countdownWords[i];
+
+            float wordStart = Time.time;
+            float wordEnd = wordStart + wordDisplayDuration;
+
+            // Fade the startPanel alpha over the full countdown, word by word slice
+            while (Time.time < wordEnd)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / totalDuration);
+
+                if (startPanel)
+                {
+                    Color c = startPanel.color;
+                    c.a = Mathf.Lerp(1f, 0f, t);
+                    startPanel.color = c;
+                }
+
+                yield return null;
+            }
+        }
+
+        // Ensure fully transparent and hide both objects
+        if (startPanel)
+        {
+            Color c = startPanel.color;
+            c.a = 0f;
+            startPanel.color = c;
+            startPanel.gameObject.SetActive(false);
+        }
+        if (startRaceText)
+            startRaceText.gameObject.SetActive(false);
+
+        BeginRace();
+    }
+
+    // ── Race lifecycle ───────────────────────────────────────────────────────
+
+    private void BeginRace()
     {
         raceStarted = true;
         raceFinished = false;
         elapsedTime = countUp ? 0f : countdownStartTime;
         nextCheckpointIndex = 0;
         UpdateCheckpointUI();
+    }
+
+    public void StartRace()
+    {
+        // Public entry kept for external callers; resets and kicks off countdown
+        foreach (var cp in checkpoints) cp.SetPassed(false);
+
+        if (finishPanel) finishPanel.SetActive(false);
+        if (lostPanel) lostPanel.SetActive(false);
+        if (buttonGrid) buttonGrid.SetActive(false);
+
+        // Reset panel visuals
+        if (startPanel)
+        {
+            Color c = startPanel.color;
+            c.a = 1f;
+            startPanel.color = c;
+            startPanel.gameObject.SetActive(true);
+        }
+        if (startRaceText)
+        {
+            Color c = startRaceText.color;
+            c.a = 1f;
+            startRaceText.color = c;
+            startRaceText.gameObject.SetActive(true);
+        }
+
+        raceStarted = false;
+        raceFinished = false;
+
+        StartCoroutine(PreRaceCountdown());
     }
 
     /// <summary>Called by a Checkpoint when the player triggers it.</summary>
@@ -105,7 +215,7 @@ public class CheckpointManager : MonoBehaviour
             FinishRace();
     }
 
-    void FinishRace()
+    private void FinishRace()
     {
         raceFinished = true;
         string timeStr = FormatTime(elapsedTime);
@@ -116,9 +226,64 @@ public class CheckpointManager : MonoBehaviour
             finishPanel.SetActive(true);
             if (finalTimeText) finalTimeText.text = $"Your Time: {timeStr}";
         }
+
+        // Show button grid after a 3-second delay
+        StartCoroutine(ShowButtonGridDelayed(3f));
     }
 
-    // ── UI helpers ──────────────────────────────────────────────────────────
+    private void LoseRace()
+    {
+        raceFinished = true;
+        Debug.Log("[Race] Time ran out — lost!");
+
+        if (lostPanel) lostPanel.SetActive(true);
+
+        // Show button grid immediately on loss
+        if (buttonGrid) buttonGrid.SetActive(true);
+    }
+
+    private IEnumerator ShowButtonGridDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (buttonGrid) buttonGrid.SetActive(true);
+    }
+
+    // ── Restart ──────────────────────────────────────────────────────────────
+
+    /// <summary>Wired to the Restart button via AddListener in Start().</summary>
+    public void RestartRace()
+    {
+        StopAllCoroutines();
+
+        foreach (var cp in checkpoints) cp.SetPassed(false);
+
+        if (finishPanel) finishPanel.SetActive(false);
+        if (lostPanel) lostPanel.SetActive(false);
+        if (buttonGrid) buttonGrid.SetActive(false);
+
+        // Reset start panel visuals and make them visible again
+        if (startPanel)
+        {
+            Color c = startPanel.color;
+            c.a = 1f;
+            startPanel.color = c;
+            startPanel.gameObject.SetActive(true);
+        }
+        if (startRaceText)
+        {
+            Color c = startRaceText.color;
+            c.a = 1f;
+            startRaceText.color = c;
+            startRaceText.gameObject.SetActive(true);
+        }
+
+        raceStarted = false;
+        raceFinished = false;
+
+        StartCoroutine(PreRaceCountdown());
+    }
+
+    // ── UI helpers ───────────────────────────────────────────────────────────
 
     void UpdateTimerUI()
     {
@@ -139,17 +304,9 @@ public class CheckpointManager : MonoBehaviour
         return $"{min:00}:{sec:00}.{ms:00}";
     }
 
-    // ── Public helpers ───────────────────────────────────────────────────────
+    // ── Public helpers ────────────────────────────────────────────────────────
 
     public float GetElapsedTime() => elapsedTime;
     public bool IsRaceFinished() => raceFinished;
     public int GetNextCheckpointIndex() => nextCheckpointIndex;
-
-    /// <summary>Call this (e.g. from a UI button) to restart the race.</summary>
-    public void RestartRace()
-    {
-        foreach (var cp in checkpoints) cp.SetPassed(false);
-        if (finishPanel) finishPanel.SetActive(false);
-        StartRace();
-    }
 }
