@@ -1239,6 +1239,17 @@ Transform:
   - {fileID: 1517602963}
   m_Father: {fileID: 58510601}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &550796360 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6343491475780212216, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+  m_PrefabInstance: {fileID: 994100573989608505}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6362666992f489c4c8ab4d6e9e3cb17a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CheckpointManager
 --- !u!1001 &554204488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4627,37 +4638,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4821395154010108, guid: 8ae1e05859f8f6040abd27d5f12182e1, type: 3}
   m_PrefabInstance: {fileID: 1908842605}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1911802929
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1911802930}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1911802930
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911802929}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1173.6189, y: 251.06088, z: -934.69806}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1937401689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5433,14 +5413,50 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheckpointManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4995127437180822340, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995127437180822340, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995127437180822340, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 550796360}
+    - target: {fileID: 4995127437180822340, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995127437180822340, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartRace
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995127437180822340, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CheckpointManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995127437180822340, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6343491475780212216, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
       propertyPath: raceHUD
       value: 
       objectReference: {fileID: 1396079209}
     - target: {fileID: 6343491475780212216, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: warningTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343491475780212216, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 6724827179017398206, guid: f0f11aac8b5298945a29eb588376d873, type: 3}
+    - target: {fileID: 6343491475780212216, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: countdownStartTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6343491475780212216, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
       propertyPath: playerStartTransform
       value: 
@@ -5469,6 +5485,18 @@ PrefabInstance:
       propertyPath: 'checkpoints.Array.data[5]'
       value: 
       objectReference: {fileID: 1887263170}
+    - target: {fileID: 6343491475780212216, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: 'countdownWords.Array.data[0]'
+      value: JET
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343491475780212216, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: 'countdownWords.Array.data[1]'
+      value: SET
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343491475780212216, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
+      propertyPath: 'countdownWords.Array.data[2]'
+      value: GO
+      objectReference: {fileID: 0}
     - target: {fileID: 6566696053894713421, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5523,6 +5551,5 @@ SceneRoots:
   - {fileID: 990572908}
   - {fileID: 994100573989608505}
   - {fileID: 984947145}
-  - {fileID: 1911802930}
   - {fileID: 1396079208}
   - {fileID: 701926422}

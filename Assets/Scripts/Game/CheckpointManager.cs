@@ -27,8 +27,9 @@ public class CheckpointManager : MonoBehaviour
     public Button restartButton;
 
     [Header("Settings")]
-    public bool countUp = true;
+    public bool countUp = false;
     public float countdownStartTime = 60f;
+    public float warningTime = 10f;       // seconds left before timer turns red
 
     [Header("Countdown")]
     [Tooltip("Words shown during the pre-race countdown, one per second")]
@@ -66,8 +67,8 @@ public class CheckpointManager : MonoBehaviour
         if (lostPanel) lostPanel.SetActive(false);
         if (buttonGrid) buttonGrid.SetActive(false);
 
-        if (restartButton)
-            restartButton.onClick.AddListener(RestartRace);
+        //if (restartButton)
+        //    restartButton.onClick.AddListener(RestartRace);
 
         // Keep startPanel and startRaceText visible (set in Inspector)
         // Ensure full opacity to start
@@ -260,6 +261,8 @@ public class CheckpointManager : MonoBehaviour
         if (finishPanel) finishPanel.SetActive(false);
         if (lostPanel) lostPanel.SetActive(false);
         if (buttonGrid) buttonGrid.SetActive(false);
+        // Reset timer color in case it was red from warning
+        if (timerText) timerText.color = Color.white;
 
         // Reset start panel visuals and make them visible again
         if (startPanel)
@@ -287,7 +290,20 @@ public class CheckpointManager : MonoBehaviour
 
     void UpdateTimerUI()
     {
-        if (timerText) timerText.text = FormatTime(elapsedTime);
+        if (!timerText) return;
+
+        if (countUp)
+        {
+            timerText.text = FormatTime(elapsedTime);
+            timerText.color = Color.white;
+        }
+        else
+        {
+            // Show whole seconds counting down: 60, 59, 58 ... 1, 0
+            int secondsLeft = Mathf.CeilToInt(elapsedTime);
+            timerText.text = secondsLeft.ToString();
+            timerText.color = secondsLeft <= warningTime ? Color.red : Color.white;
+        }
     }
 
     void UpdateCheckpointUI()
