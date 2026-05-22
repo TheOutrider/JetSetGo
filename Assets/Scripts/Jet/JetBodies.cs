@@ -22,4 +22,6 @@ public class JetData
     [Header("Speed")]
     public float speedMultiplier = 1f;
     public float speedMultiplierAngle = 15f;
+
+    public List<ParticleSystem> thrusters = new List<ParticleSystem>();
 }

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: JetDatabase
   m_EditorClassIdentifier: Assembly-CSharp::JetDatabase
   jets:
-  - jetBody: {fileID: 0}
+  - jetBody: {fileID: 4016471842459082839, guid: 52c5cc0fd1bdc5b4981066659698f455, type: 3}
     rollTorque: 0
     rollStabilize: 0
     speedMultiplier: 0
     speedMultiplierAngle: 0
+    thrusters: []

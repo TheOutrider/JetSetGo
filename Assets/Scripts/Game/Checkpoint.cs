@@ -23,7 +23,7 @@ public class Checkpoint : MonoBehaviour
         // Make sure the collider is a trigger
         GetComponent<Collider>().isTrigger = true;
         UpdateVisual();
-        indexText.SetText(checkpointIndex.ToString());
+        indexText.SetText((checkpointIndex + 1).ToString());
     }
 
     void OnTriggerEnter(Collider other)
