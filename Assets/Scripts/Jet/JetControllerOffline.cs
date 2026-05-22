@@ -171,4 +171,18 @@ public class JetControllerOffline : MonoBehaviour
         }
     }
 
+    public void ApplyJetData(JetData data)
+    {
+        rollTorque = data.rollTorque;
+        rollStabilize = data.rollStabilize;
+        speedMult = data.speedMultiplier;
+        speedMultAngle = data.speedMultiplierAngle;
+
+        // Start thruster particles if any are defined
+        foreach (var thruster in data.thrusters)
+        {
+            if (thruster != null) thruster.Play();
+        }
+    }
+
 }

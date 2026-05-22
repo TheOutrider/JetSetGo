@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"[GameManager] Map selected: {map}");
 
-        LoadGameScene();
+        //LoadGameScene();
     }
 
     public void SelectTropics() => OnMapSelected(MapChoice.Tropics);

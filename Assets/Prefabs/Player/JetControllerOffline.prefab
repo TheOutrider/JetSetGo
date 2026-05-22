@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 5966597932401134819}
   - component: {fileID: 5286017715586979220}
   - component: {fileID: 3162026305152968992}
+  - component: {fileID: 8465052003569057389}
   m_Layer: 0
   m_Name: JetControllerOffline
   m_TagString: Player
@@ -487,6 +488,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8465052003569057389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724827179017398206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dcf984c6404fa940a6c5d1a8e57321d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JetSpawner
+  spawnPoint: {fileID: 188131197386427107}
+  jetControllerPrefab: {fileID: 4708777664840366932}
 --- !u!1 &6984384728535006145
 GameObject:
   m_ObjectHideFlags: 0
