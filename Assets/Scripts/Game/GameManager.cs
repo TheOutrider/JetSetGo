@@ -39,27 +39,19 @@ public class GameManager : MonoBehaviour
     public enum MapChoice
     {
         None,
-        Desert,
-        Forest,
-        Urban      // Add / rename maps to match your project
+        Tropics,
+        Cityline,
+        NeonJungle    
     }
-
-    // ?? Stored Session Data ???????????????????????????????????????????????????
 
     public GameMode SelectedGameMode { get; private set; } = GameMode.None;
     public MapChoice SelectedMap { get; private set; } = MapChoice.None;
 
-    // ?? Scene Names ???????????????????????????????????????????????????????????
     // Make sure these EXACTLY match the scene names in File > Build Settings.
 
     [Header("Scene Names")]
     [SerializeField] private string mainMenuScene = "MainMenu";
     [SerializeField] private string mapSelectScene = "MapSelect";
-    [SerializeField] private string desertScene = "Desert";
-    [SerializeField] private string forestScene = "Forest";
-    [SerializeField] private string urbanScene = "Urban";
-
-    // ?? Step 1 : Game Mode Selection (called from MainMenuUI) ?????????????????
 
     public void OnGameModeSelected(GameMode mode)
     {
@@ -69,7 +61,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"[GameManager] Game mode selected: {mode}");
 
         // Go to map selection screen.
-        SceneManager.LoadScene(mapSelectScene);
+        //SceneManager.LoadScene(mapSelectScene);
     }
 
     // Convenience wrappers so UI buttons can call these directly via UnityEvent.
@@ -88,36 +80,25 @@ public class GameManager : MonoBehaviour
         LoadGameScene();
     }
 
-    // Convenience wrappers for UI buttons.
-    public void SelectDesert() => OnMapSelected(MapChoice.Desert);
-    public void SelectForest() => OnMapSelected(MapChoice.Forest);
-    public void SelectUrban() => OnMapSelected(MapChoice.Urban);
+    public void SelectTropics() => OnMapSelected(MapChoice.Tropics);
+    public void SelectCityLine() => OnMapSelected(MapChoice.Cityline);
+    public void SelectNeonJungle() => OnMapSelected(MapChoice.NeonJungle);
 
-    // ?? Scene Loading ?????????????????????????????????????????????????????????
 
     private void LoadGameScene()
     {
-        string targetScene = SelectedMap switch
-        {
-            MapChoice.Desert => desertScene,
-            MapChoice.Forest => forestScene,
-            MapChoice.Urban => urbanScene,
-            _ => null
-        };
-
-        if (targetScene == null)
+        if (SelectedMap == MapChoice.None)
         {
             Debug.LogError("[GameManager] No scene mapped for: " + SelectedMap);
             return;
         }
 
-        Debug.Log($"[GameManager] Loading scene: {targetScene} " +
+        Debug.Log($"[GameManager] Loading scene: {SelectedMap} " +
                   $"| Mode: {SelectedGameMode} | Map: {SelectedMap}");
 
-        SceneManager.LoadScene(targetScene);
+        SceneManager.LoadScene(SelectedMap.ToString());
     }
 
-    // ?? Utility ???????????????????????????????????????????????????????????????
 
     /// <summary>Reset state and return to the main menu.</summary>
     public void ReturnToMainMenu()
