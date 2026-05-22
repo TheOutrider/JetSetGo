@@ -6,6 +6,13 @@ using UnityEngine;
 /// </summary>
 public class GameInitializer : MonoBehaviour
 {
+
+    public GameObject CheckpointManager;
+    public GameObject SurvivalManager;
+    public GameObject CampaignManager;
+
+    private GameObject GameManagerObject, RaceHudObject;
+
     private void Start()
     {
         if (GameManager.Instance == null)
@@ -35,23 +42,33 @@ public class GameInitializer : MonoBehaviour
                 Debug.LogWarning("[GameInitializer] No game mode set — did you start from MainMenu?");
                 break;
         }
+
+        GameManagerObject = GameObject.Find("GameManager");
+        RaceHudObject = GameObject.Find("RaceHUD");
+
+        GameManager gameManager = GameManager.Instance;
+        RaceHUD raceHud = RaceHudObject.GetComponent<RaceHUD>();
+        raceHud.mainMenuButton.onClick.AddListener(gameManager.ReturnToMainMenu);
     }
 
     private void StartTimeLimitMode()
     {
         Debug.Log("Initialising Time Limit mode...");
+        CheckpointManager.SetActive(true);
         // TODO: activate your timer UI, set time limit rules, etc.
     }
 
     private void StartSurvivalMode()
     {
         Debug.Log("Initialising Survival mode...");
+        SurvivalManager.SetActive(true);
         // TODO: spawn enemies, set survival rules, etc.
     }
 
     private void StartEscortMissionMode()
     {
         Debug.Log("Initialising Escort Mission mode...");
+        CampaignManager.SetActive(true);
         // TODO: spawn escort NPC, set objectives, etc.
     }
 }

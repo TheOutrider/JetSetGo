@@ -10,6 +10,7 @@ public class RaceHUD : MonoBehaviour
     [Header("References")]
     public Transform playerTransform;
     public RectTransform arrowUI;   // assign a UI arrow Image
+    public Button mainMenuButton;
 
     void Update()
     {
