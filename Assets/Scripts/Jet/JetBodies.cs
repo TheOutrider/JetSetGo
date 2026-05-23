@@ -12,6 +12,8 @@ public class JetDatabase : ScriptableObject
 [System.Serializable]
 public class JetData
 {
+    public string jetName;
+
     [Header("Visual")]
     public GameObject jetBody;
 
@@ -23,5 +25,7 @@ public class JetData
     public float speedMultiplier = 1f;
     public float speedMultiplierAngle = 15f;
 
-    public List<ParticleSystem> thrusters = new List<ParticleSystem>();
+    [Header("Stats")]
+    public float maxHealth = 100f;
+
 }

@@ -5326,7 +5326,7 @@ PrefabInstance:
       objectReference: {fileID: 6724827179017398206, guid: f0f11aac8b5298945a29eb588376d873, type: 3}
     - target: {fileID: 6343491475780212216, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
       propertyPath: countdownStartTime
-      value: 60
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 6343491475780212216, guid: 2df95d803c5d3d440b40b61dde3d3b45, type: 3}
       propertyPath: playerStartTransform
@@ -5473,6 +5473,10 @@ PrefabInstance:
     - target: {fileID: 3357215398112445509, guid: 3de183ba25e8feb42868cf37dace3e89, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709731122037476910, guid: 3de183ba25e8feb42868cf37dace3e89, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4709731122037476910, guid: 3de183ba25e8feb42868cf37dace3e89, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

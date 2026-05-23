@@ -35,6 +35,7 @@ public class JetControllerOffline : MonoBehaviour
 
     private JetCanvasOffline jetCanvas;
     private JetStatsOffline jetStats;
+    private JetSpawner jetSpawner;
 
     Vector3 lastVelocity;
     public Vector3 LocalGForce;
@@ -66,6 +67,9 @@ public class JetControllerOffline : MonoBehaviour
         jetCanvas.cameraTransform = cam.transform;
 
         jetCanvas.playerJet = this;
+        jetSpawner = GetComponent<JetSpawner>();
+
+
     }
 
     void Update()
@@ -76,8 +80,8 @@ public class JetControllerOffline : MonoBehaviour
 
         Vector3 gForceInGs = LocalGForce / 9.81f;
         GForce = gForceInGs;
-        //gforceIndicator.text = string.Format("{0:0.0} G", GForce);
     }
+
 
     private void FixedUpdate()
     {
@@ -177,12 +181,6 @@ public class JetControllerOffline : MonoBehaviour
         rollStabilize = data.rollStabilize;
         speedMult = data.speedMultiplier;
         speedMultAngle = data.speedMultiplierAngle;
-
-        // Start thruster particles if any are defined
-        foreach (var thruster in data.thrusters)
-        {
-            if (thruster != null) thruster.Play();
-        }
     }
 
 }

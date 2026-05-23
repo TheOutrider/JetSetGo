@@ -13,15 +13,24 @@ MonoBehaviour:
   m_Name: JetDatabase
   m_EditorClassIdentifier: Assembly-CSharp::JetDatabase
   jets:
-  - jetBody: {fileID: 4016471842459082839, guid: 52c5cc0fd1bdc5b4981066659698f455, type: 3}
+  - jetName: Rafale
+    jetBody: {fileID: 4016471842459082839, guid: 52c5cc0fd1bdc5b4981066659698f455, type: 3}
     rollTorque: 5
     rollStabilize: 2
     speedMultiplier: 3
     speedMultiplierAngle: 2
-    thrusters: []
-  - jetBody: {fileID: 3202563847419061804, guid: 8403b40cb52c1b34abb75577131ce87f, type: 3}
+    maxHealth: 100
+  - jetName: Sukhoi
+    jetBody: {fileID: 3202563847419061804, guid: 8403b40cb52c1b34abb75577131ce87f, type: 3}
     rollTorque: 5
     rollStabilize: 2
     speedMultiplier: 3
     speedMultiplierAngle: 2
-    thrusters: []
+    maxHealth: 125
+  - jetName: Raptor
+    jetBody: {fileID: 835737604007996434, guid: 33d2fc1d0c07999469310c08d25cdf22, type: 3}
+    rollTorque: 5
+    rollStabilize: 2
+    speedMultiplier: 3
+    speedMultiplierAngle: 2
+    maxHealth: 150

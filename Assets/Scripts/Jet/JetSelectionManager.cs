@@ -20,6 +20,6 @@ public class JetSelectionManager : MonoBehaviour
     public void SelectJet(JetData jet)
     {
         SelectedJet = jet;
-        Debug.Log($"Selected jet: {jet.jetBody.name}");
+        Debug.Log($"Selected jet: {jet.jetName}");
     }
 }
