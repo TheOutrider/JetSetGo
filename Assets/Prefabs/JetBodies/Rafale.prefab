@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4047573459040567052}
-  - component: {fileID: 6338819918412143230}
   m_Layer: 0
   m_Name: Rafale
   m_TagString: Untagged
@@ -34,14 +33,6 @@ Transform:
   - {fileID: 3291033515317757116}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6338819918412143230
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4016471842459082839}
-  m_Mesh: {fileID: -7768770876004902435, guid: f409cb2d8fdb33f4c99f3b5129265a2a, type: 3}
 --- !u!1 &8874388637336705048
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +121,10 @@ PrefabInstance:
     - target: {fileID: 5736887883358466669, guid: d89793a428d571d428a410f797094a0e, type: 3}
       propertyPath: m_Name
       value: rafale
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736887883358466669, guid: d89793a428d571d428a410f797094a0e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2056545166327499045}
-  - component: {fileID: 6845313115119799078}
+  - component: {fileID: 6722799588684890913}
   m_Layer: 0
   m_Name: Su57
   m_TagString: Untagged
@@ -35,14 +35,27 @@ Transform:
   - {fileID: 1510405938470064864}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6845313115119799078
-MeshFilter:
+--- !u!65 &6722799588684890913
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3202563847419061804}
-  m_Mesh: {fileID: 184460806157805495, guid: 1611bf5d85e00b24a8020778fc683a3e, type: 3}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 16.65, y: 4.89, z: 27.64}
+  m_Center: {x: 0, y: 3.4, z: 0}
 --- !u!1001 &1456126558345894384
 PrefabInstance:
   m_ObjectHideFlags: 0

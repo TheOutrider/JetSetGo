@@ -36,6 +36,7 @@ public class JetControllerOffline : MonoBehaviour
     private JetCanvasOffline jetCanvas;
     private JetStatsOffline jetStats;
     private JetSpawner jetSpawner;
+    private MeshCollider jetCollider;
 
     Vector3 lastVelocity;
     public Vector3 LocalGForce;
@@ -57,6 +58,11 @@ public class JetControllerOffline : MonoBehaviour
         lookAction.action.Disable();
     }
 
+    void Awake()
+    {
+        jetSpawner = GetComponent<JetSpawner>();
+    }
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -68,8 +74,6 @@ public class JetControllerOffline : MonoBehaviour
 
         jetCanvas.playerJet = this;
         jetSpawner = GetComponent<JetSpawner>();
-
-
     }
 
     void Update()
@@ -173,6 +177,17 @@ public class JetControllerOffline : MonoBehaviour
             isBoosting = false;
             boostTimer = 0f;
         }
+    }
+
+    public void OnJetSpawned()
+    {
+        jetCollider = GetComponent<MeshCollider>();
+
+        if (jetCollider == null)
+            Debug.LogWarning("MeshCollider not yet applied — call after SpawnSelectedJet.");
+
+        // Now you can use jetCollider freely, e.g.:
+        // jetCollider.enabled = false; // disable during cutscene etc.
     }
 
     public void ApplyJetData(JetData data)
