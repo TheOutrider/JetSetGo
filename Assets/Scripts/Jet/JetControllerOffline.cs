@@ -25,6 +25,7 @@ public class JetControllerOffline : MonoBehaviour
     [SerializeField] float rollStabilize = 5f;
     [SerializeField] float speedMult = 1f;
     [SerializeField] float speedMultAngle = 0.5f;
+    [SerializeField] float torqueFactor = 0.25f;
 
     [Header("Boost")]
     [SerializeField] private float boostMultiplier = 2f;
@@ -95,7 +96,7 @@ public class JetControllerOffline : MonoBehaviour
         //jetRb.AddForce(jetRb.transform.TransformDirection(Vector3.right) * mouseX * speedMult, ForceMode.Impulse);
         jetRb.AddTorque(jetRb.transform.right * speedMultAngle * mouseY * -1, ForceMode.Acceleration);
         jetRb.AddTorque(jetRb.transform.up * speedMultAngle * mouseX, ForceMode.Acceleration);
-        jetRb.AddTorque(jetRb.transform.forward * speedMultAngle * mouseX * -1, ForceMode.Acceleration);
+        jetRb.AddTorque(jetRb.transform.forward * speedMultAngle * torqueFactor * mouseX * -1, ForceMode.Acceleration);
         HandleRoll();
         HandleBoost();
         CalculateGForce(Time.fixedDeltaTime);
