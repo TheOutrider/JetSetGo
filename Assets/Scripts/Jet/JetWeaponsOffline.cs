@@ -30,6 +30,11 @@ public class JetWeaponsOffline : MonoBehaviour
     private Vector3 originalScale;
     private Color originalColor;
 
+    [SerializeField] private ParticleSystem muzzleFlash;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource machineGunAudioSource;
+
 
     void Start()
     {
@@ -64,9 +69,12 @@ public class JetWeaponsOffline : MonoBehaviour
         buttonImage.color = Color.green;
         buttonTransform.localScale = originalScale * 0.9f;
 
-        // Fire immediately, then repeat every fireRate seconds
         Fire();
+        muzzleFlash.Play();
         InvokeRepeating(nameof(Fire), fireRate, fireRate);
+        InvokeRepeating(nameof(PlayMuzzleFlash), fireRate, fireRate); 
+
+        machineGunAudioSource.Play();
     }
 
     public void OnFireUp()
@@ -75,8 +83,17 @@ public class JetWeaponsOffline : MonoBehaviour
         buttonImage.color = originalColor;
         buttonTransform.localScale = originalScale;
 
-        // Stop the repeating fire
         CancelInvoke(nameof(Fire));
+        CancelInvoke(nameof(PlayMuzzleFlash));
+        muzzleFlash.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear); 
+
+        machineGunAudioSource.Stop  ();
+    }
+
+    void PlayMuzzleFlash()
+    {
+        muzzleFlash.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        muzzleFlash.Play();
     }
 
     Vector3 GetAimPoint()
@@ -127,7 +144,7 @@ public class JetWeaponsOffline : MonoBehaviour
             Quaternion.LookRotation(shootDir)
         );
 
-        Missile missile = missileObj.GetComponent<Missile>();
+        MissileOffline missile = missileObj.GetComponent<MissileOffline>();
         missile.Initialize(aimPoint);
     }
     
