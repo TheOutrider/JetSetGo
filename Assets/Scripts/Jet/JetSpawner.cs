@@ -23,8 +23,9 @@ public class JetSpawner : MonoBehaviour
     {
         GameObject body = Instantiate(data.jetBody, spawnPoint.position, spawnPoint.rotation, jetControllerPrefab.gameObject.transform);
         spawnedJetBody = data;
+        spawnedBodyInstance = body;                          // ← store reference
         ApplyMeshCollider(body);
-        jetControllerPrefab.OnJetSpawned(); 
+        jetControllerPrefab.OnJetSpawned();
         jetControllerPrefab.ApplyJetData(data);
     }
 
@@ -44,6 +45,13 @@ public class JetSpawner : MonoBehaviour
             meshCollider = jetControllerPrefab.gameObject.AddComponent<MeshCollider>();
 
         meshCollider.sharedMesh = colliderMesh;
-        meshCollider.convex = true; 
+        meshCollider.convex = true;
+
+        // Wire the collider reference into SelectedJetBody
+        SelectedJetBody selectedJetBody = body.GetComponent<SelectedJetBody>();
+        if (selectedJetBody == null)
+            selectedJetBody = body.AddComponent<SelectedJetBody>();
+
+        selectedJetBody.meshCollider = meshCollider;        // ← point it at the main GO's collider
     }
 }
