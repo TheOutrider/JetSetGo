@@ -1,20 +1,33 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
-public class MainMenu : MonoBehaviour {
+public class MainMenu : MonoBehaviour
+{
 
-    public string sceneName;
+    public GameObject ButtonSidePanel;
+    public GameObject MapPanel;
 
-    private void Start() {
-        
-    }
-
-    private void Update() {
-        
-    }
-
-    public void OnGameStart()
+    public void OnTimeLimitClicked()
     {
-        SceneManager.LoadScene(sceneName);
+        GameManager.Instance.SelectTimeLimit();
+        OnModeClicked();
     }
+
+    public void OnSurvivalClicked()
+    {
+        GameManager.Instance.SelectSurvival();
+        OnModeClicked();
+    }
+
+    public void OnEscortMissionClicked()
+    {
+        GameManager.Instance.SelectEscortMission();
+        OnModeClicked();
+    }
+
+    private void OnModeClicked()
+    {
+        ButtonSidePanel.SetActive(false);
+        MapPanel.SetActive(true);
+    }
+
 }
