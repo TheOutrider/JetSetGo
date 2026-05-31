@@ -14,6 +14,7 @@ public class JetControllerOffline : MonoBehaviour
 
     public GameObject TouchPad;
     float mouseX, mouseY;
+    public FloatingJoystick floatingJoystick;
 
     public Slider throttleSlider;
 

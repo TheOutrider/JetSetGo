@@ -472,7 +472,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::JetControllerOffline
   jetRb: {fileID: 3162026305152968992}
   lookAction: {fileID: 1559315149872038131, guid: 6c4dcf2f4f1eed94b87588ddeef46ba7, type: 3}
-  TouchPad: {fileID: 3167282652499173555}
+  TouchPad: {fileID: 3229063577301297681}
+  floatingJoystick: {fileID: 0}
   throttleSlider: {fileID: 7688957854991398576}
   rollTorque: 5
   rollStabilize: 2
@@ -870,6 +871,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 253590004823524946, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
+      propertyPath: m_ControlPath
+      value: <Gamepad>/leftStick
+      objectReference: {fileID: 0}
     - target: {fileID: 839103944121846641, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -1058,6 +1063,10 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: JetControllerOffline, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 9085495303166875292, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9106292062387786120, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1126,9 +1135,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!1 &3167282652499173555 stripped
+--- !u!1 &3229063577301297681 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 9085495303166875292, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8731823453159005246, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
   m_PrefabInstance: {fileID: 6188609021373953583}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &4789166171380447057 stripped

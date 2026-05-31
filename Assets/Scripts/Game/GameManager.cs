@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-
+        // Caps the frame rate at 60 FPS
+        Application.targetFrameRate = 60;
         // Keep this GameObject alive when loading new scenes.
         DontDestroyOnLoad(gameObject);
     }
