@@ -470,6 +470,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 799571404}
     m_Modifications:
+    - target: {fileID: 1797144101043065935, guid: 0b63007f8a140054fb729ade6f3ef597, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883566337443344824, guid: 0b63007f8a140054fb729ade6f3ef597, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4123141108992553269, guid: 0b63007f8a140054fb729ade6f3ef597, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -532,6 +540,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6377176944254131503, guid: 0b63007f8a140054fb729ade6f3ef597, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602005753075307950, guid: 0b63007f8a140054fb729ade6f3ef597, type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7629226289493007758, guid: 0b63007f8a140054fb729ade6f3ef597, type: 3}
@@ -831,6 +843,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 2747520470933662598, guid: 40de5265500909e40860f1d0992cb2dd, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348895908298377445, guid: 40de5265500909e40860f1d0992cb2dd, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7342242953019628753, guid: 40de5265500909e40860f1d0992cb2dd, type: 3}
       propertyPath: m_Name
       value: Mountain_L_03_LOD
@@ -886,6 +906,10 @@ PrefabInstance:
     - target: {fileID: 8685076884393211130, guid: 40de5265500909e40860f1d0992cb2dd, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 9161804943933933750, guid: 40de5265500909e40860f1d0992cb2dd, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1379,6 +1403,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 799571404}
     m_Modifications:
+    - target: {fileID: 3955611622831558548, guid: 2ed04fd6c2e0c884f8470f5136f96c86, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5774649904331098461, guid: 2ed04fd6c2e0c884f8470f5136f96c86, type: 3}
       propertyPath: m_LocalPosition.x
       value: -167.9
@@ -1419,6 +1447,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6511731188674045697, guid: 2ed04fd6c2e0c884f8470f5136f96c86, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6586652798129427431, guid: 2ed04fd6c2e0c884f8470f5136f96c86, type: 3}
       propertyPath: m_Name
       value: Mountain_L_10_LOD
@@ -1426,6 +1458,10 @@ PrefabInstance:
     - target: {fileID: 6586652798129427431, guid: 2ed04fd6c2e0c884f8470f5136f96c86, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7034808092776015881, guid: 2ed04fd6c2e0c884f8470f5136f96c86, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7178391124455572280, guid: 2ed04fd6c2e0c884f8470f5136f96c86, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1870,6 +1906,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 2747520470933662598, guid: 40de5265500909e40860f1d0992cb2dd, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348895908298377445, guid: 40de5265500909e40860f1d0992cb2dd, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7342242953019628753, guid: 40de5265500909e40860f1d0992cb2dd, type: 3}
       propertyPath: m_Name
       value: Mountain_L_03_LOD (1)
@@ -1925,6 +1969,10 @@ PrefabInstance:
     - target: {fileID: 8685076884393211130, guid: 40de5265500909e40860f1d0992cb2dd, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 9161804943933933750, guid: 40de5265500909e40860f1d0992cb2dd, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

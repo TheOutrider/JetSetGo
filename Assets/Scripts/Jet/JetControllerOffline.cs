@@ -14,7 +14,6 @@ public class JetControllerOffline : MonoBehaviour
 
     public GameObject TouchPad;
     float mouseX, mouseY;
-    public FloatingJoystick floatingJoystick;
 
     public Slider throttleSlider;
 
@@ -190,6 +189,11 @@ public class JetControllerOffline : MonoBehaviour
         rollStabilize = data.rollStabilize;
         speedMult = data.speedMultiplier;
         speedMultAngle = data.speedMultiplierAngle;
+    }
+
+    public void ChangeCameraView()
+    {
+
     }
 
 }
