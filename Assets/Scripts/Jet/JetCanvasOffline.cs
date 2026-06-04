@@ -12,7 +12,6 @@ public class JetCanvasOffline : MonoBehaviour
     [SerializeField] private GameObject hudHorizontalIndicator;
 
     public Vector3 GForce;
-    public Transform cameraTransform;
     public JetControllerOffline playerJet;
 
     private void Update()
@@ -35,11 +34,6 @@ public class JetCanvasOffline : MonoBehaviour
     {
         float parentZ = transform.eulerAngles.z;
         hudHorizontalIndicator.transform.localRotation = Quaternion.Euler(0f, 0f, -parentZ);
-        //Vector3 forward = cameraTransform.forward;
-        //forward.z = 0f; // Remove roll influence
-
-        //if (forward != Vector3.zero)
-        //    hudHorizontalIndicator.transform.rotation = Quaternion.LookRotation(forward);
     }
 
     public void SetHealth(int health)

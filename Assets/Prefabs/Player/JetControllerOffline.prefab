@@ -456,6 +456,7 @@ Transform:
   - {fileID: 8946074401299484353}
   - {fileID: 188131197386427107}
   - {fileID: 5521926050211404053}
+  - {fileID: 8373911386608072452}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4708777664840366932
@@ -473,7 +474,6 @@ MonoBehaviour:
   jetRb: {fileID: 3162026305152968992}
   lookAction: {fileID: 1559315149872038131, guid: 6c4dcf2f4f1eed94b87588ddeef46ba7, type: 3}
   TouchPad: {fileID: 3229063577301297681}
-  floatingJoystick: {fileID: 0}
   throttleSlider: {fileID: 7688957854991398576}
   rollTorque: 5
   rollStabilize: 2
@@ -485,6 +485,7 @@ MonoBehaviour:
   LocalGForce: {x: 0, y: 0, z: 0}
   GForce: {x: 0, y: 0, z: 0}
   cameraTransform: {fileID: 8946074401299484353}
+  fpsCameraTransform: {fileID: 8373911386608072452}
   cam: {fileID: 2003411606940198451}
   hitLayer:
     serializedVersion: 2
@@ -553,7 +554,6 @@ MonoBehaviour:
   bankAngleIndicator: {fileID: 8421712187285977911}
   hudHorizontalIndicator: {fileID: 4789166171380447057}
   GForce: {x: 0, y: 0, z: 0}
-  cameraTransform: {fileID: 8946074401299484353}
   playerJet: {fileID: 0}
 --- !u!54 &3162026305152968992
 Rigidbody:
@@ -797,6 +797,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 188131197386427107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8246081445030099759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8373911386608072452}
+  m_Layer: 0
+  m_Name: FPSCamTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8373911386608072452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8246081445030099759}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3649182816733254911}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8578272958678357790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,6 +1045,22 @@ PrefabInstance:
     - target: {fileID: 6462164729424754167, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
       propertyPath: m_MovementRange
       value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 7627513116916251302, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4708777664840366932}
+    - target: {fileID: 7627513116916251302, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeCameraView
+      objectReference: {fileID: 0}
+    - target: {fileID: 7627513116916251302, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: JetControllerOffline, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7627513116916251302, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7775271557202845903, guid: ea8c85e7a8fe3b84aa1f667b41aae0df, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target

@@ -19,6 +19,7 @@ public class JetControllerOffline : MonoBehaviour
 
     bool rollLeftPressed = false;
     bool rollRightPressed = false;
+    bool isFPSEnabled = false;
 
     [Header("Physics")]
     [SerializeField] float rollTorque = 20f;
@@ -42,7 +43,7 @@ public class JetControllerOffline : MonoBehaviour
     public Vector3 LocalGForce;
 
     public Vector3 GForce;
-    public Transform cameraTransform;
+    public Transform cameraTransform, fpsCameraTransform;
 
     [SerializeField] private CinemachineCamera cam;
     [SerializeField] private LayerMask hitLayer;
@@ -69,8 +70,6 @@ public class JetControllerOffline : MonoBehaviour
         jetRb = GetComponent<Rigidbody>();
         jetCanvas = GetComponent<JetCanvasOffline>();
         jetStats = GetComponent<JetStatsOffline>();
-        //cam = Camera.main;
-        jetCanvas.cameraTransform = cam.transform;
 
         jetCanvas.playerJet = this;
     }
@@ -83,6 +82,7 @@ public class JetControllerOffline : MonoBehaviour
 
         Vector3 gForceInGs = LocalGForce / 9.81f;
         GForce = gForceInGs;
+
     }
 
 
@@ -193,6 +193,9 @@ public class JetControllerOffline : MonoBehaviour
 
     public void ChangeCameraView()
     {
+        isFPSEnabled = !isFPSEnabled;
+        cam.Follow = isFPSEnabled ? fpsCameraTransform : cameraTransform;
+        cam.LookAt = isFPSEnabled ? fpsCameraTransform : cameraTransform;
 
     }
 
