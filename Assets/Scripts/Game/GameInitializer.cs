@@ -8,7 +8,7 @@ public class GameInitializer : MonoBehaviour
 {
 
     public GameObject CheckpointManager;
-    public GameObject SurvivalManager;
+    public GameObject RaceOfflineManager;
     public GameObject CampaignManager;
 
     private GameObject GameManagerObject, RaceHudObject;
@@ -22,7 +22,7 @@ public class GameInitializer : MonoBehaviour
             return;
         }
 
-        Debug.Log($"[GameInitializer] Starting game — {GameManager.Instance}");
+        Debug.Log($"[GameInitializer] Starting game ï¿½ {GameManager.Instance}");
 
         switch (GameManager.Instance.SelectedGameMode)
         {
@@ -30,8 +30,8 @@ public class GameInitializer : MonoBehaviour
                 StartTimeLimitMode();
                 break;
 
-            case GameManager.GameMode.Survival:
-                StartSurvivalMode();
+            case GameManager.GameMode.RaceOffline:
+                StartRaceOfflineMode();
                 break;
 
             case GameManager.GameMode.EscortMission:
@@ -39,7 +39,7 @@ public class GameInitializer : MonoBehaviour
                 break;
 
             default:
-                Debug.LogWarning("[GameInitializer] No game mode set — did you start from MainMenu?");
+                Debug.LogWarning("[GameInitializer] No game mode set ï¿½ did you start from MainMenu?");
                 break;
         }
 
@@ -58,11 +58,11 @@ public class GameInitializer : MonoBehaviour
         // TODO: activate your timer UI, set time limit rules, etc.
     }
 
-    private void StartSurvivalMode()
+    private void StartRaceOfflineMode()
     {
-        Debug.Log("Initialising Survival mode...");
-        SurvivalManager.SetActive(true);
-        // TODO: spawn enemies, set survival rules, etc.
+        Debug.Log("Initialising RaceOffline mode...");
+        RaceOfflineManager.SetActive(true);
+        // TODO: spawn enemies, set RaceOffline rules, etc.
     }
 
     private void StartEscortMissionMode()

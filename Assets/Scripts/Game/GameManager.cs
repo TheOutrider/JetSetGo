@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         None,
         TimeLimit,
-        Survival,
+        RaceOffline,
         EscortMission
     }
 
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     // Convenience wrappers so UI buttons can call these directly via UnityEvent.
     public void SelectTimeLimit() => OnGameModeSelected(GameMode.TimeLimit);
-    public void SelectSurvival() => OnGameModeSelected(GameMode.Survival);
+    public void SelectRaceOffline() => OnGameModeSelected(GameMode.RaceOffline);
     public void SelectEscortMission() => OnGameModeSelected(GameMode.EscortMission);
 
     // ?? Step 2 : Map Selection (called from MapSelectUI) ??????????????????????

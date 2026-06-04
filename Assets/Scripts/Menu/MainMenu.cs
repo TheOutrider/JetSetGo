@@ -20,9 +20,9 @@ public class MainMenu : MonoBehaviour
         OnModeClicked();
     }
 
-    public void OnSurvivalClicked()
+    public void OnRaceOfflineClicked()
     {
-        GameManager.Instance.SelectSurvival();
+        GameManager.Instance.SelectRaceOffline();
         OnModeClicked();
     }
 
