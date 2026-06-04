@@ -67,11 +67,6 @@ public class CheckpointManager : MonoBehaviour
         if (lostPanel) lostPanel.SetActive(false);
         if (buttonGrid) buttonGrid.SetActive(false);
 
-        //if (restartButton)
-        //    restartButton.onClick.AddListener(RestartRace);
-
-        // Keep startPanel and startRaceText visible (set in Inspector)
-        // Ensure full opacity to start
         if (startPanel)
         {
             Color c = startPanel.color;
