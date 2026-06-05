@@ -24,7 +24,8 @@ public class CheckpointManager : MonoBehaviour
     public TextMeshProUGUI checkpointText;
     public GameObject finishPanel, lostPanel, buttonGrid;
     public Image startPanel;
-    public TextMeshProUGUI finalTimeText, startRaceText;
+    public TextMeshProUGUI startRaceText;
+    //  public TextMeshProUGUI finalTimeText;
     public Button restartButton;
 
     [Header("Settings")]
@@ -227,7 +228,7 @@ public class CheckpointManager : MonoBehaviour
         if (finishPanel)
         {
             finishPanel.SetActive(true);
-            if (finalTimeText) finalTimeText.text = $"Your Time: {timeStr}";
+            // if (finalTimeText) finalTimeText.text = $"Your Time: {timeStr}";
         }
 
         // Show button grid after a 3-second delay
@@ -258,8 +259,8 @@ public class CheckpointManager : MonoBehaviour
     {
         StopAllCoroutines();
 
-        // Destroy(spawnedPlayer);
-        // spawnedPlayer = Instantiate(playerPrefab, playerStartTransform.position, playerStartTransform.rotation);
+        Destroy(spawnedPlayer);
+        spawnedPlayer = Instantiate(playerPrefab, playerStartTransform.position, playerStartTransform.rotation);
 
         foreach (var cp in checkpoints) cp.SetPassed(false);
 

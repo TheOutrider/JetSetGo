@@ -1727,7 +1727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5702011501312039720, guid: 86e798835fbe30443b0faa35d5a1be3e, type: 3}
       propertyPath: checkpointIndex
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7099682210197378145, guid: 86e798835fbe30443b0faa35d5a1be3e, type: 3}
       propertyPath: m_StaticEditorFlags
