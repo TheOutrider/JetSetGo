@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using PurrNet;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -256,6 +257,9 @@ public class CheckpointManager : MonoBehaviour
     public void RestartRace()
     {
         StopAllCoroutines();
+
+        // Destroy(spawnedPlayer);
+        // spawnedPlayer = Instantiate(playerPrefab, playerStartTransform.position, playerStartTransform.rotation);
 
         foreach (var cp in checkpoints) cp.SetPassed(false);
 
