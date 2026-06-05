@@ -203,6 +203,12 @@ public class CheckpointManager : MonoBehaviour
         checkpoints[index].SetPassed(true);
         nextCheckpointIndex++;
 
+        if (nextCheckpointIndex < checkpoints.Count)
+            checkpoints[nextCheckpointIndex].SetPassed(false); // re-runs UpdateVisual as primary
+
+        if (nextCheckpointIndex + 1 < checkpoints.Count)
+            checkpoints[nextCheckpointIndex + 1].SetPassed(false); // re-runs UpdateVisual as secondary
+
         Debug.Log($"[Checkpoints] Checkpoint {index + 1}/{checkpoints.Count} reached!");
 
         UpdateCheckpointUI();

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider))]
 public class Checkpoint : MonoBehaviour
@@ -10,17 +11,20 @@ public class Checkpoint : MonoBehaviour
 
     [Header("Visuals")]
     public MeshRenderer indicatorMesh;   // optional: a gate/arch mesh to recolor
-    public Color pendingColor = Color.yellow;
-    public Color passedColor = Color.green;
-    public Color nextColor = Color.cyan;    // highlights the upcoming checkpoint
+
+    public Image primaryCheckpointImage, secondaryCheckpointImage, finalCheckpointImage;
 
     [SerializeField] private TextMeshProUGUI indexText;
+
+    [Header("Role Colors")]
+    public Color primaryColor   = Color.green;
+    public Color secondaryColor = Color.yellow;
+    public Color finalColor     = Color.blue;
 
     private bool passed = false;
 
     void Start()
     {
-        // Make sure the collider is a trigger
         GetComponent<Collider>().isTrigger = true;
         UpdateVisual();
         indexText.SetText((checkpointIndex + 1).ToString());
@@ -30,7 +34,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (passed) return;
         if (!other.CompareTag("Player")) return;
-        Debug.Log("OBJECT TRIGGEREED");
+        Debug.Log("OBJECT TRIGGERED");
 
         CheckpointManager.Instance?.CheckpointReached(checkpointIndex);
     }
@@ -45,21 +49,42 @@ public class Checkpoint : MonoBehaviour
 
     void UpdateVisual()
     {
+        // Determine role of this checkpoint
+        // Roles are mutually exclusive; a passed checkpoint shows nothing.
+        int nextIndex   = CheckpointManager.Instance != null
+                          ? CheckpointManager.Instance.GetNextCheckpointIndex()
+                          : 0;
+        int totalCount  = CheckpointManager.Instance != null
+                          ? CheckpointManager.Instance.checkpoints.Count
+                          : 0;
+        int finalIndex  = totalCount - 1;
+
+        bool isPrimary   = !passed && checkpointIndex == nextIndex && checkpointIndex != finalIndex;
+        bool isSecondary = !passed && checkpointIndex == nextIndex + 1 && checkpointIndex != finalIndex;
+        bool isFinal     = !passed && checkpointIndex == finalIndex;
+
+        // ── Images ───────────────────────────────────────────────────────────
+        if (primaryCheckpointImage)
+            primaryCheckpointImage.gameObject.SetActive(isPrimary);
+
+        if (secondaryCheckpointImage)
+            secondaryCheckpointImage.gameObject.SetActive(isSecondary);
+
+        if (finalCheckpointImage)
+            finalCheckpointImage.gameObject.SetActive(isFinal);
+
+        // ── Mesh color ────────────────────────────────────────────────────────
         if (!indicatorMesh) return;
 
-        bool isNext = CheckpointManager.Instance != null &&
-                      CheckpointManager.Instance.GetNextCheckpointIndex() == checkpointIndex;
-
-        Color target = passed ? passedColor : (isNext ? nextColor : pendingColor);
-        indicatorMesh.material.color = target;
+        if      (isPrimary)   indicatorMesh.material.color = primaryColor;
+        else if (isSecondary) indicatorMesh.material.color = secondaryColor;
+        else if (isFinal)     indicatorMesh.material.color = finalColor;
+        else                  indicatorMesh.material.color = Color.gray; // passed / hidden
     }
 
-    // Draw a visible gizmo in the Scene view
     void OnDrawGizmos()
     {
         Gizmos.color = passed ? Color.green : Color.yellow;
         Gizmos.DrawWireCube(transform.position, transform.lossyScale);
-        //UnityEditor.Handles.Label(transform.position + Vector3.up * 2f,
-        //    $"CP {checkpointIndex}");
     }
 }
