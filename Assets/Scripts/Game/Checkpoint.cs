@@ -23,6 +23,15 @@ public class Checkpoint : MonoBehaviour
 
     private bool passed = false;
 
+    private AudioSource audioSource;
+    public AudioClip passCompleteSound;
+
+    void Awake()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+    }
+
     void Start()
     {
         GetComponent<Collider>().isTrigger = true;
@@ -34,7 +43,8 @@ public class Checkpoint : MonoBehaviour
     {
         if (passed) return;
         if (!other.CompareTag("Player")) return;
-        Debug.Log("OBJECT TRIGGERED");
+        Debug.Log("OBJECT TRIGGERED");  
+        PlaySound();
 
         CheckpointManager.Instance?.CheckpointReached(checkpointIndex);
     }
@@ -86,5 +96,11 @@ public class Checkpoint : MonoBehaviour
     {
         Gizmos.color = passed ? Color.green : Color.yellow;
         Gizmos.DrawWireCube(transform.position, transform.lossyScale);
+    }
+
+    public void PlaySound()
+    {
+        if (passCompleteSound)
+            audioSource.PlayOneShot(passCompleteSound, 1);
     }
 }
