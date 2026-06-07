@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: MapDatabase
   m_EditorClassIdentifier: Assembly-CSharp::MapDatabase
   Maps:
-  - Name: Capitol City
-  - Name: Neon Jungle
-  - Name: Tropic Vacation
-  - Name: Scorched Dessert
-  - Name: Asteroid Belt
+  - Name: 
