@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625c14eee3ad46c99df7c7c891ef668a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
-  Damping: {x: 0.075, y: 0.35, z: 0.2}
+  Damping: {x: 0.15, y: 0.4, z: 0.4}
   ShoulderOffset: {x: 0, y: -0.4, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
@@ -430,6 +430,7 @@ GameObject:
   - component: {fileID: 5286017715586979220}
   - component: {fileID: 3162026305152968992}
   - component: {fileID: 6359892161013671518}
+  - component: {fileID: -6467030570987176038}
   m_Layer: 0
   m_Name: JetControllerOffline
   m_TagString: Player
@@ -605,6 +606,24 @@ MonoBehaviour:
     speedMultiplierAngle: 15
     maxHealth: 100
   spawnedBodyInstance: {fileID: 0}
+--- !u!114 &-6467030570987176038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724827179017398206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33254df2e2e7fc248bca56ee2bde221a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacerInfo
+  racerName: Bablu
+  isPlayer: 1
+  currentCheckpointIndex: 0
+  totalCheckpoints: 0
+  hasFinished: 0
+  finishTime: 0
 --- !u!1 &6984384728535006145
 GameObject:
   m_ObjectHideFlags: 0
