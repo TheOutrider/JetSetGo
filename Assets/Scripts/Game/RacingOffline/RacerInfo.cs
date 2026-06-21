@@ -12,6 +12,6 @@ public class RacerInfo : MonoBehaviour
 
     void Start()
     {
-        RaceModeManager.Instance?.RegisterRacer(this);
+        
     }
 }

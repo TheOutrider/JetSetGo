@@ -47,7 +47,6 @@ public class JetControllerOffline : MonoBehaviour
 
     [SerializeField] private CinemachineCamera cam;
     [SerializeField] private LayerMask hitLayer;
-    [SerializeField] private float range = 2000f;
 
     void OnEnable()
     {

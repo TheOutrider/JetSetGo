@@ -492,6 +492,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 183
   range: 2000
+  autoLevelStrength: 8
+  rollDamping: 3
 --- !u!114 &1273336476143259041
 MonoBehaviour:
   m_ObjectHideFlags: 0
