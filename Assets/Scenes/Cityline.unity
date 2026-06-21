@@ -8419,6 +8419,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameInitializer
       objectReference: {fileID: 0}
+    - target: {fileID: 8402337478980126339, guid: c1ba472e0a2929e48aaca160d7d52c75, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
