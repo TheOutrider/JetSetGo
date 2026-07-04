@@ -863,16 +863,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  primaryCheckpointPrefab: {fileID: 7610007972728282770, guid: 86e798835fbe30443b0faa35d5a1be3e, type: 3}
-  secondaryCheckpointPrefab: {fileID: 7610007972728282770, guid: 9713a4f2ccbaca347a8aae3136994da8, type: 3}
-  finalCheckpointPrefab: {fileID: 7610007972728282770, guid: 569e0c1089353914cb5e9c1f8d2bae69, type: 3}
   timerText: {fileID: 1347047226956824045}
   checkpointText: {fileID: 5954910541391377875}
   finishPanel: {fileID: 3924519620260893934}
   lostPanel: {fileID: 5855670910910094556}
   buttonGrid: {fileID: 2977357693847377008}
   startPanel: {fileID: 4528433613566575364}
-  finalTimeText: {fileID: 4613093807157495297}
   startRaceText: {fileID: 5591144009596750243}
   restartButton: {fileID: 4995127437180822340}
   countUp: 0

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class JetAiEnemy : MonoBehaviour
 {
     [Header("References")]
@@ -11,9 +12,10 @@ public class JetAiEnemy : MonoBehaviour
     [Header("Movement")]
     public float speedMult = 1f;
     public float throttleValue = 1f;
+    public float waypointRange = 15f;
 
     [Header("Rotation")]
-    public float rotationSpeed = 90f; // degrees per second, tune for turn tightness
+    public float rotationSpeed = 90f;
 
     [Header("Debug")]
     public int currentWaypoint;
@@ -21,16 +23,23 @@ public class JetAiEnemy : MonoBehaviour
 
     void Start()
     {
-        waypoints = waypointContainer.waypoints;
+        if (!jetRb) jetRb = GetComponent<Rigidbody>();
+
+        if (waypointContainer)
+            waypoints = waypointContainer.waypoints;
+
         currentWaypoint = 0;
 
-        if (waypoints.Count > 0)
+        if (waypoints != null && waypoints.Count > 0)
             transform.LookAt(waypoints[currentWaypoint]);
     }
 
     void Update()
     {
-        if (waypoints.Count == 0) return;
+        if (waypoints == null || waypoints.Count == 0) return;
+
+        if (Vector3.Distance(waypoints[currentWaypoint].position, transform.position) <= waypointRange)
+            AdvanceWaypoint();
 
         Vector3 toWaypoint = waypoints[currentWaypoint].position - transform.position;
         currentAngle = Vector3.SignedAngle(transform.forward, toWaypoint, Vector3.up);
@@ -40,7 +49,7 @@ public class JetAiEnemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (waypoints.Count == 0) return;
+        if (waypoints == null || waypoints.Count == 0) return;
 
         RotateTowardsWaypoint();
 
@@ -54,19 +63,12 @@ public class JetAiEnemy : MonoBehaviour
         if (direction.sqrMagnitude < 0.0001f) return;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
-        Quaternion newRotation = Quaternion.RotateTowards(
-            jetRb.rotation,
-            targetRotation,
-            rotationSpeed * Time.fixedDeltaTime
-        );
-
+        Quaternion newRotation = Quaternion.RotateTowards(jetRb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
         jetRb.MoveRotation(newRotation);
     }
 
-    void OnTriggerEnter(Collider other)
+    void AdvanceWaypoint()
     {
-        if (!other.CompareTag("waypoint")) return;
-
         currentWaypoint++;
         if (currentWaypoint >= waypoints.Count) currentWaypoint = 0;
     }

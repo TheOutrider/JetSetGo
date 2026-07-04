@@ -491,9 +491,6 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 183
-  range: 2000
-  autoLevelStrength: 8
-  rollDamping: 3
 --- !u!114 &1273336476143259041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -622,10 +619,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RacerInfo
   racerName: Bablu
   isPlayer: 1
-  currentCheckpointIndex: 0
-  totalCheckpoints: 0
-  hasFinished: 0
+  nextCheckpointIndex: 0
+  finished: 0
   finishTime: 0
+  placement: -1
+  rb: {fileID: 0}
 --- !u!1 &6984384728535006145
 GameObject:
   m_ObjectHideFlags: 0
