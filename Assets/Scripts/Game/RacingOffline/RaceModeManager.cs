@@ -18,7 +18,9 @@ public class RaceModeManager : MonoBehaviour
     public GameObject aiPrefab;
     public List<Transform> aiSpawnTransforms = new List<Transform>();
     [Tooltip("Optional friendly names, otherwise 'AI 1', 'AI 2'...")]
-    public List<string> aiNames = new List<string>();
+    // public List<string> aiNames = new List<string>();
+    public List<JetModel> aiEnemies = new List<JetModel>();
+    public JetDatabase jetDatabase;
 
     [Header("Waypoints (AI navigation path)")]
     public WaypointContainer waypointContainer;
@@ -121,8 +123,10 @@ public class RaceModeManager : MonoBehaviour
             RacerInfo racer = aiObj.GetComponent<RacerInfo>();
             if (!racer) racer = aiObj.AddComponent<RacerInfo>();
             racer.isPlayer = false;
-            racer.racerName = (i < aiNames.Count && !string.IsNullOrEmpty(aiNames[i])) ? aiNames[i] : $"AI {i + 1}";
+            racer.racerName = (i < aiEnemies.Count && !string.IsNullOrEmpty(aiEnemies[i].AliasName)) ? aiEnemies[i].AliasName : $"AI {i + 1}";
             racer.rb = aiObj.GetComponentInChildren<Rigidbody>();
+
+
 
             JetAiEnemy pilot = aiObj.GetComponent<JetAiEnemy>();
             if (pilot)
@@ -131,6 +135,9 @@ public class RaceModeManager : MonoBehaviour
                 if (!pilot.jetRb) pilot.jetRb = racer.rb;
                 pilot.enabled = false; // held until BeginRace(), so it doesn't Start()/steer during countdown
             }
+            EnemyJetSpawner enemyJetSpawner = pilot.GetComponent<EnemyJetSpawner>();
+            JetData selectedJet = jetDatabase.jets.Find((x) => x.jetName == aiEnemies[i].JetName);
+            enemyJetSpawner.SpawnSelectedJet(selectedJet);
 
             FreezeRacer(racer.rb, true);
             racers.Add(racer);
@@ -259,13 +266,18 @@ public class RaceModeManager : MonoBehaviour
     void UpdateLeaderboard()
     {
         if (!leaderboardText) return;
+        // Remove destroyed racers
+        // racers.RemoveAll(r => r == null);
 
         List<RacerInfo> ordered = racers
+            .Where(r => r != null)
             .OrderByDescending(r => r.finished)
             .ThenBy(r => r.finished ? r.placement : int.MaxValue)
             .ThenByDescending(r => r.nextCheckpointIndex)
             .ThenBy(DistanceToNextCheckpoint)
             .ToList();
+
+            Debug.Log(ordered.ToString());
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < ordered.Count; i++)

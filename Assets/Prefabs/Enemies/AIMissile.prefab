@@ -149,13 +149,13 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: a2916aaaf26c62141853e8c2b37b1373, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.503
+  m_Volume: 0.219
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 47
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -248,7 +248,7 @@ MonoBehaviour:
   speed: 300
   turnSpeed: 110
   lifeTime: 8
-  damage: 300
+  damage: 35
   owner: {fileID: 0}
   target: {fileID: 0}
 --- !u!1 &2816669983852967665

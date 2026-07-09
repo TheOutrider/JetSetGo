@@ -34,3 +34,10 @@ MonoBehaviour:
     speedMultiplier: 3
     speedMultiplierAngle: 2
     maxHealth: 150
+  - jetName: Falcon
+    jetBody: {fileID: 6719424853283353284, guid: 7ab255a1383a4a8479b3c1e7bcdb4e99, type: 3}
+    rollTorque: 5
+    rollStabilize: 2
+    speedMultiplier: 3
+    speedMultiplierAngle: 2
+    maxHealth: 150

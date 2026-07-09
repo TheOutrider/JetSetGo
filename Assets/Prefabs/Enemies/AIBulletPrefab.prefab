@@ -437,7 +437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AiBullet
   speed: 2500
   lifeTime: 3
-  damage: 100
+  damage: 5
   owner: {fileID: 0}
 --- !u!1 &6704304950101502129
 GameObject:

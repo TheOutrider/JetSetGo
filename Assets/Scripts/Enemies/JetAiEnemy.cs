@@ -40,6 +40,10 @@ public class JetAiEnemy : MonoBehaviour
     [Tooltip("Only fire missiles at targets farther than this (bullets handle close range).")]
     public float missileMinRange = 15f;
 
+    [Header("Combat - Aiming (Turret)")]
+    [Tooltip("How fast the fire points swivel to track a target, independent of body/waypoint rotation.")]
+    public float turretTurnSpeed = 220f;
+
     [Header("Debug")]
     public int currentWaypoint;
     public float currentAngle;
@@ -48,6 +52,12 @@ public class JetAiEnemy : MonoBehaviour
     private float nextDetectionTime;
     private float nextBulletTime;
     private float nextMissileTime;
+
+    // Resting local rotation of the fire points relative to the jet body (their "aligned with flight path" pose)
+    private Quaternion bulletRestLocalRot = Quaternion.identity;
+    private Quaternion missileRestLocalRot = Quaternion.identity;
+
+    public JetDatabase jetDatabase;
 
     void Start()
     {
@@ -61,6 +71,9 @@ public class JetAiEnemy : MonoBehaviour
 
         if (waypoints != null && waypoints.Count > 0)
             transform.LookAt(waypoints[currentWaypoint]);
+
+        if (bulletFirePoint) bulletRestLocalRot = bulletFirePoint.localRotation;
+        if (missileFirePoint) missileRestLocalRot = missileFirePoint.localRotation;
     }
 
     void OnEnable()
@@ -86,6 +99,7 @@ public class JetAiEnemy : MonoBehaviour
         Debug.DrawRay(transform.position, toWaypoint, Color.yellow);
 
         UpdateDetection();
+        AimWeapons();
         HandleWeapons();
     }
 
@@ -152,6 +166,37 @@ public class JetAiEnemy : MonoBehaviour
         for (int i = 0; i < tags.Length; i++)
             if (t.CompareTag(tags[i])) return true;
         return false;
+    }
+
+    /// <summary>
+    /// Swivels the fire points toward currentTarget independently of the jet body,
+    /// which keeps rotating toward the waypoint. This is what actually lets bullets/missiles
+    /// travel toward the enemy instead of always firing straight down the flight path.
+    /// Falls back to the fire point's resting pose (aligned with the flight path) when no target.
+    /// </summary>
+    void AimWeapons()
+    {
+        if (currentTarget)
+        {
+            Vector3 toTarget = currentTarget.position - transform.position;
+            if (toTarget.sqrMagnitude < 0.0001f) return;
+
+            Quaternion desiredRot = Quaternion.LookRotation(toTarget.normalized, transform.up);
+
+            if (bulletFirePoint)
+                bulletFirePoint.rotation = Quaternion.RotateTowards(bulletFirePoint.rotation, desiredRot, turretTurnSpeed * Time.deltaTime);
+
+            if (missileFirePoint)
+                missileFirePoint.rotation = Quaternion.RotateTowards(missileFirePoint.rotation, desiredRot, turretTurnSpeed * Time.deltaTime);
+        }
+        else
+        {
+            if (bulletFirePoint)
+                bulletFirePoint.localRotation = Quaternion.RotateTowards(bulletFirePoint.localRotation, bulletRestLocalRot, turretTurnSpeed * Time.deltaTime);
+
+            if (missileFirePoint)
+                missileFirePoint.localRotation = Quaternion.RotateTowards(missileFirePoint.localRotation, missileRestLocalRot, turretTurnSpeed * Time.deltaTime);
+        }
     }
 
     void HandleWeapons()
@@ -221,5 +266,18 @@ public class JetAiEnemy : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, leftRot * forward);
         Gizmos.DrawRay(transform.position, rightRot * forward);
+    }
+
+     public void OnJetSpawned()
+    {
+        
+    }
+
+    public void ApplyJetData(JetData data)
+    {
+        // rollTorque = data.rollTorque;
+        // rollStabilize = data.rollStabilize;
+        // speedMult = data.speedMultiplier;
+        // speedMultAngle = data.speedMultiplierAngle;
     }
 }

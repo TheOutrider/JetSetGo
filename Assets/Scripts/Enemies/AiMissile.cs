@@ -38,11 +38,11 @@ public class AiMissile : MonoBehaviour
         transform.position += transform.forward * speed * Time.deltaTime;
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (owner != null && other.transform.root == owner.root) return; // ignore self-hit
-    Debug.Log("AI MISSILE  COLLIDED WITH " + other.gameObject.tag + " " + other.gameObject.name);
-        JetHealth health = other.GetComponentInParent<JetHealth>();
+        if (owner != null && collision.collider.transform.root == owner.root) return; // ignore self-hit
+        Debug.Log("AI MISSILE  COLLIDED WITH " + collision.collider.gameObject.tag + " " + collision.collider.gameObject.name);
+        JetHealth health = collision.collider.GetComponentInParent<JetHealth>();
         if (health != null)
         {
             health.TakeDamage(damage);
@@ -50,7 +50,7 @@ public class AiMissile : MonoBehaviour
             return;
         }
 
-        if (!other.isTrigger)
+        // if (!collision.collider.isTrigger)
             Destroy(gameObject);
     }
 }

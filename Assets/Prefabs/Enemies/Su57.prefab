@@ -90,6 +90,7 @@ MonoBehaviour:
   missilePrefab: {fileID: 1259865673663102, guid: 76cc16644cfe69a49852854ada93bc03, type: 3}
   missileCooldown: 5
   missileMinRange: 15
+  turretTurnSpeed: 220
   currentWaypoint: 0
   currentAngle: 0
   currentTarget: {fileID: 0}
@@ -156,7 +157,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 1961015089699091192}
   explosionLifetime: 3
   destroyOnDeath: 1
-  destroyDelay: 0.15
+  destroyDelay: 2
 --- !u!1 &8791367134709509010
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +457,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1611bf5d85e00b24a8020778fc683a3e, type: 3}
       propertyPath: m_Name
       value: Su57
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1611bf5d85e00b24a8020778fc683a3e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

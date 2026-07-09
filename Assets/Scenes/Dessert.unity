@@ -572,11 +572,39 @@ MonoBehaviour:
   jetRb: {fileID: 418075410}
   waypointContainer: {fileID: 87715552}
   waypoints: []
+  health: {fileID: 0}
   speedMult: 1
   throttleValue: 1
+  waypointRange: 15
   rotationSpeed: 90
+  targetTags:
+  - Player
+  - Enemy
+  detectionRange: 60
+  detectionAngle: 25
+  detectionMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  detectionInterval: 0.2
+  jeyBody:
+    jetName: 
+    jetBody: {fileID: 0}
+    rollTorque: 10
+    rollStabilize: 5
+    speedMultiplier: 1
+    speedMultiplierAngle: 15
+    maxHealth: 100
+  bulletFirePoint: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  bulletFireRate: 4
+  missileFirePoint: {fileID: 0}
+  missilePrefab: {fileID: 0}
+  missileCooldown: 5
+  missileMinRange: 15
+  turretTurnSpeed: 220
   currentWaypoint: 0
   currentAngle: 0
+  currentTarget: {fileID: 0}
 --- !u!54 &418075410
 Rigidbody:
   m_ObjectHideFlags: 0
