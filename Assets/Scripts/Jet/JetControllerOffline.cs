@@ -48,6 +48,8 @@ public class JetControllerOffline : MonoBehaviour
     [SerializeField] private CinemachineCamera cam;
     [SerializeField] private LayerMask hitLayer;
 
+    [SerializeField] private ParticleSystem hyperdrive;
+
     void OnEnable()
     {
         lookAction.action.Enable();
@@ -80,8 +82,7 @@ public class JetControllerOffline : MonoBehaviour
         mouseY = input.y;
 
         Vector3 gForceInGs = LocalGForce / 9.81f;
-        GForce = gForceInGs;
-
+        GForce = gForceInGs;;
     }
 
 
@@ -162,19 +163,42 @@ public class JetControllerOffline : MonoBehaviour
         if (isBoosting) return; // prevent re-triggering mid-boost
 
         isBoosting = true;
+        IncreaseHyperdrive();
         boostTimer = boostDuration;
     }
 
     private void HandleBoost()
     {
         if (!isBoosting) return;
-
+        
         boostTimer -= Time.fixedDeltaTime;
         if (boostTimer <= 0f)
         {
             isBoosting = false;
             boostTimer = 0f;
+            DecreaseHyperdrive();
         }
+    }
+
+     public void IncreaseHyperdrive()
+    {
+        var main = hyperdrive.main;
+        main.simulationSpeed = 5f;
+        main.maxParticles = 100;
+    }
+
+    public void DecreaseHyperdrive()
+    {
+        var main = hyperdrive.main;
+        main.simulationSpeed = 3f;
+        main.maxParticles = 10;
+    }
+
+    public void StopHyperdrive()
+    {
+        var main = hyperdrive.main;
+        main.simulationSpeed = 0f;
+        main.maxParticles = 0;
     }
 
     public void OnJetSpawned()
