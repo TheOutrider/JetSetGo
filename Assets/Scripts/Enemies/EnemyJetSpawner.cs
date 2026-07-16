@@ -25,7 +25,7 @@ public class EnemyJetSpawner : MonoBehaviour
         spawnedJetBody = data;
         spawnedBodyInstance = body;                          // ← store reference
         ApplyMeshCollider(body);
-        jetAiEnemy.OnJetSpawned();
+        jetAiEnemy.OnJetSpawned(body);
         jetAiEnemy.ApplyJetData(data);
     }
 

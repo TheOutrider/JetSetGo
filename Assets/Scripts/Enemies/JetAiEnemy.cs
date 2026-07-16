@@ -59,6 +59,8 @@ public class JetAiEnemy : MonoBehaviour
 
     public JetDatabase jetDatabase;
 
+    public GameObject selectedEnemyJetbody;
+
     void Start()
     {
         if (!jetRb) jetRb = GetComponent<Rigidbody>();
@@ -268,9 +270,9 @@ public class JetAiEnemy : MonoBehaviour
         Gizmos.DrawRay(transform.position, rightRot * forward);
     }
 
-     public void OnJetSpawned()
+     public void OnJetSpawned(GameObject body)
     {
-        
+        selectedEnemyJetbody = body;
     }
 
     public void ApplyJetData(JetData data)

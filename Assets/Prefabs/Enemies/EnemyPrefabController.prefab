@@ -146,7 +146,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 6698073677059731298}
   explosionLifetime: 3
   destroyOnDeath: 1
-  destroyDelay: 0.15
+  destroyDelay: 3
 --- !u!1 &3607565496475390284
 GameObject:
   m_ObjectHideFlags: 0
