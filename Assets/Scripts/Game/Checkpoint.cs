@@ -6,14 +6,12 @@ using UnityEngine.UI;
 public class Checkpoint : MonoBehaviour
 {
     [Header("Identity")]
-    [Tooltip("Set this to the checkpoint's order (0-based). Or let CheckpointManager auto-assign.")]
+    [Tooltip("Set this to the checkpoint's order (0-based). Or let the manager auto-assign.")]
     public int checkpointIndex = 0;
 
     [Header("Visuals")]
-    public MeshRenderer indicatorMesh;   // optional: a gate/arch mesh to recolor
-
+    public MeshRenderer indicatorMesh;
     public Image primaryCheckpointImage, secondaryCheckpointImage, finalCheckpointImage;
-
     [SerializeField] private TextMeshProUGUI indexText;
 
     [Header("Role Colors")]
@@ -21,6 +19,7 @@ public class Checkpoint : MonoBehaviour
     public Color secondaryColor = Color.yellow;
     public Color finalColor     = Color.blue;
 
+    // Only meaningful in single-player (CheckpointManager) time-trial mode
     private bool passed = false;
 
     private AudioSource audioSource;
@@ -36,16 +35,30 @@ public class Checkpoint : MonoBehaviour
     {
         GetComponent<Collider>().isTrigger = true;
         UpdateVisual();
-        indexText.SetText((checkpointIndex + 1).ToString());
+        if (indexText) indexText.SetText((checkpointIndex + 1).ToString());
     }
 
     void OnTriggerEnter(Collider other)
     {
+        // Race mode: any racer (player or AI) can trigger it, tracked per-racer via RacerInfo
+        if (RaceModeManager.Instance != null)
+        {
+            RacerInfo racer = other.GetComponentInParent<RacerInfo>();
+            if (racer == null) return;
+            if(racer.gameObject.tag == "Player")
+            {
+                PlaySound();
+            }
+            
+            RaceModeManager.Instance.CheckpointReached(racer, checkpointIndex);
+            return;
+        }
+
+        // Single-player time trial mode (original behaviour)
         if (passed) return;
         if (!other.CompareTag("Player")) return;
-        Debug.Log("OBJECT TRIGGERED");  
-        PlaySound();
 
+        PlaySound();
         CheckpointManager.Instance?.CheckpointReached(checkpointIndex);
     }
 
@@ -57,39 +70,46 @@ public class Checkpoint : MonoBehaviour
 
     public bool IsPassed() => passed;
 
-    void UpdateVisual()
+    public void UpdateVisual()
     {
-        // Determine role of this checkpoint
-        // Roles are mutually exclusive; a passed checkpoint shows nothing.
-        int nextIndex   = CheckpointManager.Instance != null
-                          ? CheckpointManager.Instance.GetNextCheckpointIndex()
-                          : 0;
-        int totalCount  = CheckpointManager.Instance != null
-                          ? CheckpointManager.Instance.checkpoints.Count
-                          : 0;
-        int finalIndex  = totalCount - 1;
+        int nextIndex;
+        int totalCount;
 
-        bool isPrimary   = !passed && checkpointIndex == nextIndex && checkpointIndex != finalIndex;
-        bool isSecondary = !passed && checkpointIndex == nextIndex + 1 && checkpointIndex != finalIndex;
-        bool isFinal     = !passed && checkpointIndex == finalIndex;
+        if (RaceModeManager.Instance != null)
+        {
+            nextIndex  = RaceModeManager.Instance.GetPlayerNextCheckpointIndex();
+            totalCount = RaceModeManager.Instance.checkpoints.Count;
+        }
+        else
+        {
+            nextIndex  = CheckpointManager.Instance != null ? CheckpointManager.Instance.GetNextCheckpointIndex() : 0;
+            totalCount = CheckpointManager.Instance != null ? CheckpointManager.Instance.checkpoints.Count : 0;
+        }
 
-        // ── Images ───────────────────────────────────────────────────────────
-        if (primaryCheckpointImage)
-            primaryCheckpointImage.gameObject.SetActive(isPrimary);
+        int finalIndex = totalCount - 1;
 
-        if (secondaryCheckpointImage)
-            secondaryCheckpointImage.gameObject.SetActive(isSecondary);
+        bool isPrimary   = checkpointIndex == nextIndex && checkpointIndex != finalIndex;
+        bool isSecondary = checkpointIndex == nextIndex + 1 && checkpointIndex != finalIndex;
+        bool isFinal     = checkpointIndex == finalIndex;
 
-        if (finalCheckpointImage)
-            finalCheckpointImage.gameObject.SetActive(isFinal);
+        if (RaceModeManager.Instance == null)
+        {
+            // preserve original "passed hides everything" behaviour for time trial
+            isPrimary   &= !passed;
+            isSecondary &= !passed;
+            isFinal     &= !passed;
+        }
 
-        // ── Mesh color ────────────────────────────────────────────────────────
+        if (primaryCheckpointImage)   primaryCheckpointImage.gameObject.SetActive(isPrimary);
+        if (secondaryCheckpointImage) secondaryCheckpointImage.gameObject.SetActive(isSecondary);
+        if (finalCheckpointImage)     finalCheckpointImage.gameObject.SetActive(isFinal);
+
         if (!indicatorMesh) return;
 
         if      (isPrimary)   indicatorMesh.material.color = primaryColor;
         else if (isSecondary) indicatorMesh.material.color = secondaryColor;
         else if (isFinal)     indicatorMesh.material.color = finalColor;
-        else                  indicatorMesh.material.color = Color.gray; // passed / hidden
+        else                  indicatorMesh.material.color = Color.gray;
     }
 
     void OnDrawGizmos()
