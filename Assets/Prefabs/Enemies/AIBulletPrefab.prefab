@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 8943032204141061652}
   m_Layer: 0
   m_Name: AIBulletPrefab
-  m_TagString: Untagged
+  m_TagString: ai_bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

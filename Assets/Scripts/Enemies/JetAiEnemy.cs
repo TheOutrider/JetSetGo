@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -8,7 +10,7 @@ public class JetAiEnemy : MonoBehaviour
     public Rigidbody jetRb;
     public WaypointContainer waypointContainer;
     public List<Transform> waypoints;
-    public JetHealth health;
+    public JetHealth jetHealth;
 
     [Header("Movement")]
     public float speedMult = 1f;
@@ -44,6 +46,11 @@ public class JetAiEnemy : MonoBehaviour
     [Tooltip("How fast the fire points swivel to track a target, independent of body/waypoint rotation.")]
     public float turretTurnSpeed = 220f;
 
+    [Header("Jet UI")]
+    public Slider healthSlider;
+    public TextMeshProUGUI jetNameText, rankText;
+    public Canvas statCanvas;
+
     [Header("Debug")]
     public int currentWaypoint;
     public float currentAngle;
@@ -64,7 +71,7 @@ public class JetAiEnemy : MonoBehaviour
     void Start()
     {
         if (!jetRb) jetRb = GetComponent<Rigidbody>();
-        if (!health) health = GetComponent<JetHealth>();
+        if (!jetHealth) jetHealth = GetComponent<JetHealth>();
 
         if (waypointContainer)
             waypoints = waypointContainer.waypoints;
@@ -80,12 +87,12 @@ public class JetAiEnemy : MonoBehaviour
 
     void OnEnable()
     {
-        if (health) health.OnDeath += HandleDeath;
+        if (jetHealth) jetHealth.OnDeath += HandleDeath;
     }
 
     void OnDisable()
     {
-        if (health) health.OnDeath -= HandleDeath;
+        if (jetHealth) jetHealth.OnDeath -= HandleDeath;
     }
 
     void Update()
@@ -103,6 +110,8 @@ public class JetAiEnemy : MonoBehaviour
         UpdateDetection();
         AimWeapons();
         HandleWeapons();
+
+        healthSlider.value = jetHealth.currentHealth / jetHealth.maxHealth;
     }
 
     void FixedUpdate()
@@ -281,5 +290,11 @@ public class JetAiEnemy : MonoBehaviour
         // rollStabilize = data.rollStabilize;
         // speedMult = data.speedMultiplier;
         // speedMultAngle = data.speedMultiplierAngle;
+        // jetHealth.currentHealth = data.maxHealth;
+        // jetHealth.maxHealth = data.maxHealth;
+    // public TextMeshProUGUI jetNameText, rankText;
+        jetNameText.text = data.jetName;
+        healthSlider.value = 1;
+
     }
 }

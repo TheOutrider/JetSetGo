@@ -41,7 +41,8 @@ public class AiBullet : MonoBehaviour
         }
 
         // Hit scenery/track geometry (non-trigger solid colliders) -> despawn
-        if (!collision.collider.isTrigger)
+        // if (!collision.collider.isTrigger)
+            if(collision.gameObject.tag != "Checkpoint")
             Destroy(gameObject);
     }
 }

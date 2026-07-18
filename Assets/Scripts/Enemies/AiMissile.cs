@@ -51,6 +51,7 @@ public class AiMissile : MonoBehaviour
         }
 
         // if (!collision.collider.isTrigger)
+        if(collision.gameObject.tag != "Checkpoint")
             Destroy(gameObject);
     }
 }

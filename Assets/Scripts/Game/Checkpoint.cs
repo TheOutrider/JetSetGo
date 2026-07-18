@@ -45,8 +45,11 @@ public class Checkpoint : MonoBehaviour
         {
             RacerInfo racer = other.GetComponentInParent<RacerInfo>();
             if (racer == null) return;
-
-            PlaySound();
+            if(racer.gameObject.tag == "Player")
+            {
+                PlaySound();
+            }
+            
             RaceModeManager.Instance.CheckpointReached(racer, checkpointIndex);
             return;
         }

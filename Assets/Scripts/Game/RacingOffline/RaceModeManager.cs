@@ -277,14 +277,15 @@ public class RaceModeManager : MonoBehaviour
             .ThenBy(DistanceToNextCheckpoint)
             .ToList();
 
-            Debug.Log(ordered.ToString());
-
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < ordered.Count; i++)
         {
             RacerInfo r = ordered[i];
             string tag = r.isPlayer ? " (You)" : "";
             sb.AppendLine($"{i + 1}. {r.racerName}{tag}");
+            JetAiEnemy pilot = ordered[i].GetComponent<JetAiEnemy>();
+            if(pilot != null)
+            pilot.rankText.text = $"#{i + 1}";
         }
         leaderboardText.text = sb.ToString();
     }

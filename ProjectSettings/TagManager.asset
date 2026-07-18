@@ -6,6 +6,9 @@ TagManager:
   tags:
   - waypoint
   - Enemy
+  - Checkpoint
+  - ai_bullet
+  - ai_missile
   layers:
   - Default
   - TransparentFX

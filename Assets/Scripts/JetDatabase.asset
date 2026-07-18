@@ -33,11 +33,18 @@ MonoBehaviour:
     rollStabilize: 2
     speedMultiplier: 3
     speedMultiplierAngle: 2
-    maxHealth: 150
+    maxHealth: 140
   - jetName: Falcon
     jetBody: {fileID: 6719424853283353284, guid: 7ab255a1383a4a8479b3c1e7bcdb4e99, type: 3}
     rollTorque: 5
     rollStabilize: 2
     speedMultiplier: 3
     speedMultiplierAngle: 2
-    maxHealth: 150
+    maxHealth: 165
+  - jetName: Devastator
+    jetBody: {fileID: 4880688868680380564, guid: 34c610e4358d04441b5741a05a7284a1, type: 3}
+    rollTorque: 5
+    rollStabilize: 2
+    speedMultiplier: 3
+    speedMultiplierAngle: 2
+    maxHealth: 135
