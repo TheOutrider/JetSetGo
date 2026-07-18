@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using PurrNet;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +24,8 @@ public class CheckpointManager : MonoBehaviour
     public TextMeshProUGUI checkpointText;
     public GameObject finishPanel, lostPanel, buttonGrid;
     public Image startPanel;
-    public TextMeshProUGUI finalTimeText, startRaceText;
+    public TextMeshProUGUI startRaceText;
+    //  public TextMeshProUGUI finalTimeText;
     public Button restartButton;
 
     [Header("Settings")]
@@ -67,11 +69,6 @@ public class CheckpointManager : MonoBehaviour
         if (lostPanel) lostPanel.SetActive(false);
         if (buttonGrid) buttonGrid.SetActive(false);
 
-        //if (restartButton)
-        //    restartButton.onClick.AddListener(RestartRace);
-
-        // Keep startPanel and startRaceText visible (set in Inspector)
-        // Ensure full opacity to start
         if (startPanel)
         {
             Color c = startPanel.color;
@@ -208,6 +205,12 @@ public class CheckpointManager : MonoBehaviour
         checkpoints[index].SetPassed(true);
         nextCheckpointIndex++;
 
+        if (nextCheckpointIndex < checkpoints.Count)
+            checkpoints[nextCheckpointIndex].SetPassed(false); // re-runs UpdateVisual as primary
+
+        if (nextCheckpointIndex + 1 < checkpoints.Count)
+            checkpoints[nextCheckpointIndex + 1].SetPassed(false); // re-runs UpdateVisual as secondary
+
         Debug.Log($"[Checkpoints] Checkpoint {index + 1}/{checkpoints.Count} reached!");
 
         UpdateCheckpointUI();
@@ -225,7 +228,7 @@ public class CheckpointManager : MonoBehaviour
         if (finishPanel)
         {
             finishPanel.SetActive(true);
-            if (finalTimeText) finalTimeText.text = $"Your Time: {timeStr}";
+            // if (finalTimeText) finalTimeText.text = $"Your Time: {timeStr}";
         }
 
         // Show button grid after a 3-second delay
@@ -255,6 +258,9 @@ public class CheckpointManager : MonoBehaviour
     public void RestartRace()
     {
         StopAllCoroutines();
+
+        Destroy(spawnedPlayer);
+        spawnedPlayer = Instantiate(playerPrefab, playerStartTransform.position, playerStartTransform.rotation);
 
         foreach (var cp in checkpoints) cp.SetPassed(false);
 
