@@ -92,7 +92,7 @@ public class RaceModeManager : MonoBehaviour
     {
         if (!raceStarted || raceFinished) return;
         elapsedTime += Time.deltaTime;
-        if (timerText) timerText.text = CheckpointManager.FormatTime(elapsedTime);
+        // if (timerText) timerText.text = RaceModeManager.FormatTime(elapsedTime);
     }
 
     // ── Spawning ─────────────────────────────────────────────────────────────
@@ -243,7 +243,7 @@ public class RaceModeManager : MonoBehaviour
     void FinishRace()
     {
         raceFinished = true;
-        Debug.Log($"[RaceMode] Player finished! Time: {CheckpointManager.FormatTime(elapsedTime)}");
+        // Debug.Log($"[RaceMode] Player finished! Time: {CheckpointManager.FormatTime(elapsedTime)}");
 
         if (finishPanel) finishPanel.SetActive(true);
         StartCoroutine(ShowButtonGridDelayed(3f));
