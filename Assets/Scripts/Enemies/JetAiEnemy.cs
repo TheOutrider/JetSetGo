@@ -264,6 +264,8 @@ public class JetAiEnemy : MonoBehaviour
             jetRb.angularVelocity = Vector3.zero;
             jetRb.constraints = RigidbodyConstraints.FreezeAll;
         }
+
+    
     }
 
     void OnDrawGizmosSelected()
@@ -290,9 +292,7 @@ public class JetAiEnemy : MonoBehaviour
         // rollStabilize = data.rollStabilize;
         // speedMult = data.speedMultiplier;
         // speedMultAngle = data.speedMultiplierAngle;
-        // jetHealth.currentHealth = data.maxHealth;
-        // jetHealth.maxHealth = data.maxHealth;
-    // public TextMeshProUGUI jetNameText, rankText;
+        
         jetNameText.text = data.jetName;
         healthSlider.value = 1;
 

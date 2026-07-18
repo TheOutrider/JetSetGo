@@ -625,7 +625,7 @@ MonoBehaviour:
   finished: 0
   finishTime: 0
   placement: -1
-  rb: {fileID: 0}
+  rb: {fileID: 3162026305152968992}
 --- !u!1 &6984384728535006145
 GameObject:
   m_ObjectHideFlags: 0
