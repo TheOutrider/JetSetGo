@@ -36,8 +36,6 @@ public class JetControllerOffline : MonoBehaviour
     private float boostTimer = 0f;
 
     private JetCanvasOffline jetCanvas;
-    private JetStatsOffline jetStats;
-    private JetSpawner jetSpawner;
 
     Vector3 lastVelocity;
     public Vector3 LocalGForce;
@@ -62,7 +60,7 @@ public class JetControllerOffline : MonoBehaviour
 
     void Awake()
     {
-        jetSpawner = GetComponent<JetSpawner>();
+        
     }
 
     void Start()
@@ -70,7 +68,6 @@ public class JetControllerOffline : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         jetRb = GetComponent<Rigidbody>();
         jetCanvas = GetComponent<JetCanvasOffline>();
-        jetStats = GetComponent<JetStatsOffline>();
 
         jetCanvas.playerJet = this;
     }
