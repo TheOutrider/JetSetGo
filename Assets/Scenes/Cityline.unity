@@ -1332,6 +1332,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8092569145350037965, guid: a35dffc404f3c7f499974b8a7c96f6fe, type: 3}
   m_PrefabInstance: {fileID: 97323558}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &97323561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -6687095013795338597, guid: a35dffc404f3c7f499974b8a7c96f6fe, type: 3}
+  m_PrefabInstance: {fileID: 97323558}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97323559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bfb0861afcdf7149abf2601abd50401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RaceModeManager
 --- !u!114 &118563032 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5702011501312039720, guid: 86e798835fbe30443b0faa35d5a1be3e, type: 3}
@@ -3033,8 +3044,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 550796360}
-        m_TargetAssemblyTypeName: CheckpointManager, Assembly-CSharp
+      - m_Target: {fileID: 97323561}
+        m_TargetAssemblyTypeName: RaceModeManager, Assembly-CSharp
         m_MethodName: RestartRace
         m_Mode: 1
         m_Arguments:
