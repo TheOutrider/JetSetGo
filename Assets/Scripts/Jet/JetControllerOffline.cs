@@ -219,4 +219,12 @@ public class JetControllerOffline : MonoBehaviour
 
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Checkpoint")
+        {
+            OnBoostPressed();
+        }
+    }
+
 }

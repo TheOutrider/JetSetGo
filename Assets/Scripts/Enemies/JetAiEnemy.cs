@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
-public class JetAiEnemy : MonoBehaviour
+public class JetAiEnemy : MonoBehaviour, IPowerupReceiver
 {
     [Header("References")]
     public Rigidbody jetRb;
@@ -28,6 +29,12 @@ public class JetAiEnemy : MonoBehaviour
     public float detectionAngle = 25f;
     public LayerMask detectionMask = ~0;
     public float detectionInterval = 0.2f;
+
+    public int bulletAmmo = 0;
+    public int missileAmmo = 0;
+    public bool boostActive = false;
+    public float boostDuration = 3f;
+    public float boostMultiplier = 1.6f;
 
     [Header("Combat - Bullets")]
     public Transform bulletFirePoint;
@@ -296,5 +303,42 @@ public class JetAiEnemy : MonoBehaviour
         jetNameText.text = data.jetName;
         healthSlider.value = 1;
 
+    }
+
+    public void ReceivePowerup(PowerupType type, int amount)
+    {
+        switch (type)
+        {
+            case PowerupType.Bullets:
+                bulletAmmo += amount;
+                break;
+            case PowerupType.Missiles:
+                missileAmmo += amount;
+                break;
+            case PowerupType.Health:
+                if (jetHealth) jetHealth.currentHealth = Mathf.Min(jetHealth.currentHealth + amount, jetHealth.maxHealth);
+                break;
+            case PowerupType.Boost:
+                StartCoroutine(BoostRoutine());
+                break;
+        }
+    }
+
+    IEnumerator BoostRoutine()
+    {
+        boostActive = true;
+        float originalMult = speedMult;
+        speedMult *= boostMultiplier;
+        yield return new WaitForSeconds(boostDuration);
+        speedMult = originalMult;
+        boostActive = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Checkpoint")
+        {
+            StartCoroutine(BoostRoutine());
+        }
     }
 }
