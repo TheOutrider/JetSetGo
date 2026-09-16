@@ -22,7 +22,9 @@ public class JetWeaponsOffline : MonoBehaviour
     [SerializeField] private GameObject missilePrefab;
     [SerializeField] private Transform missileMuzzle;
     [SerializeField] private float missileCooldown = 3f;
-    public Button missileButton;                  
+    public Button missileButton;    
+
+    public int bulletCount, missileCount;              
 
     private float missileCooldownTimer = 0f;
     private bool missileOnCooldown = false;
@@ -65,6 +67,7 @@ public class JetWeaponsOffline : MonoBehaviour
 
     public void OnFireDown()
     {
+        if(bulletCount > 0) return;
         isFirePressed = true;
         buttonImage.color = Color.green;
         buttonTransform.localScale = originalScale * 0.9f;
@@ -123,6 +126,7 @@ public class JetWeaponsOffline : MonoBehaviour
 
     public void OnMissilePressed()
     {
+        if(missileCount > 0) return;
         if (missileOnCooldown) return;
 
         FireMissile();

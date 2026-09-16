@@ -36,8 +36,6 @@ public class JetControllerOffline : MonoBehaviour
     private float boostTimer = 0f;
 
     private JetCanvasOffline jetCanvas;
-    private JetStatsOffline jetStats;
-    private JetSpawner jetSpawner;
 
     Vector3 lastVelocity;
     public Vector3 LocalGForce;
@@ -47,7 +45,8 @@ public class JetControllerOffline : MonoBehaviour
 
     [SerializeField] private CinemachineCamera cam;
     [SerializeField] private LayerMask hitLayer;
-    [SerializeField] private float range = 2000f;
+
+    [SerializeField] private ParticleSystem hyperdrive;
 
     void OnEnable()
     {
@@ -61,7 +60,7 @@ public class JetControllerOffline : MonoBehaviour
 
     void Awake()
     {
-        jetSpawner = GetComponent<JetSpawner>();
+        
     }
 
     void Start()
@@ -69,7 +68,6 @@ public class JetControllerOffline : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         jetRb = GetComponent<Rigidbody>();
         jetCanvas = GetComponent<JetCanvasOffline>();
-        jetStats = GetComponent<JetStatsOffline>();
 
         jetCanvas.playerJet = this;
     }
@@ -81,8 +79,7 @@ public class JetControllerOffline : MonoBehaviour
         mouseY = input.y;
 
         Vector3 gForceInGs = LocalGForce / 9.81f;
-        GForce = gForceInGs;
-
+        GForce = gForceInGs;;
     }
 
 
@@ -163,19 +160,42 @@ public class JetControllerOffline : MonoBehaviour
         if (isBoosting) return; // prevent re-triggering mid-boost
 
         isBoosting = true;
+        IncreaseHyperdrive();
         boostTimer = boostDuration;
     }
 
     private void HandleBoost()
     {
         if (!isBoosting) return;
-
+        
         boostTimer -= Time.fixedDeltaTime;
         if (boostTimer <= 0f)
         {
             isBoosting = false;
             boostTimer = 0f;
+            DecreaseHyperdrive();
         }
+    }
+
+     public void IncreaseHyperdrive()
+    {
+        var main = hyperdrive.main;
+        main.simulationSpeed = 5f;
+        main.maxParticles = 100;
+    }
+
+    public void DecreaseHyperdrive()
+    {
+        var main = hyperdrive.main;
+        main.simulationSpeed = 3f;
+        main.maxParticles = 10;
+    }
+
+    public void StopHyperdrive()
+    {
+        var main = hyperdrive.main;
+        main.simulationSpeed = 0f;
+        main.maxParticles = 0;
     }
 
     public void OnJetSpawned()
@@ -197,6 +217,14 @@ public class JetControllerOffline : MonoBehaviour
         cam.Follow = isFPSEnabled ? fpsCameraTransform : cameraTransform;
         cam.LookAt = isFPSEnabled ? fpsCameraTransform : cameraTransform;
 
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Checkpoint")
+        {
+            OnBoostPressed();
+        }
     }
 
 }

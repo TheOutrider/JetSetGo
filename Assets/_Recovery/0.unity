@@ -867,9 +867,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1611ea19a51391f408ecb5a8dafd1ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
-  timeLimitButton: {fileID: 0}
-  survivalButton: {fileID: 0}
-  escortMissionButton: {fileID: 0}
+  ButtonSidePanel: {fileID: 0}
+  MapPanel: {fileID: 0}
+  rotationSpeed: 50
+  rectTransform: {fileID: 0}
 --- !u!4 &1891168690
 Transform:
   m_ObjectHideFlags: 0
